@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JB³ AutoSocialAi — Technical Blueprint & Build Plan</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-800-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/jetbrains-mono@latest/latin-400-normal.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+        colors: {
+          ink: { 50:'#f6f7f9', 100:'#eceef2', 200:'#d5d9e2', 300:'#b0b7c5', 400:'#858ea1', 500:'#667085', 600:'#4f5769', 700:'#3d4554', 800:'#2a3040', 900:'#1a1f2b', 950:'#0f1219' },
+          accent: { DEFAULT:'#6366f1', light:'#818cf8' },
+          mint: { DEFAULT:'#10b981', light:'#34d399' },
+          amber: { DEFAULT:'#f59e0b', light:'#fbbf24' },
+          rose: { DEFAULT:'#f43f5e', light:'#fb7185' },
+          sky: { DEFAULT:'#0ea5e9', light:'#38bdf8' },
+          violet: { DEFAULT:'#8b5cf6', light:'#a78bfa' }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #0f1219; color: #d5d9e2; }
+  .gradient-text { background: linear-gradient(135deg, #818cf8 0%, #6366f1 40%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .gradient-border { position: relative; }
+  .gradient-border::before { content:''; position:absolute; inset:0; padding:1px; border-radius:inherit; background:linear-gradient(135deg, rgba(99,102,241,.5), rgba(16,185,129,.3)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; }
+  .card { background: linear-gradient(180deg, rgba(42,48,64,.6) 0%, rgba(26,31,43,.6) 100%); backdrop-filter: blur(12px); }
+  .nav-link { position: relative; transition: color .2s; }
+  .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:linear-gradient(90deg,#6366f1,#10b981); transition:width .3s; }
+  .nav-link:hover::after, .nav-link.active::after { width:100%; }
+  .nav-link:hover, .nav-link.active { color:#fff; }
+  .tab-btn.active { background: rgba(99,102,241,.15); color:#fff; border-color:#6366f1 !important; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .scroll-mt { scroll-margin-top: 80px; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #1a1f2b; }
+  ::-webkit-scrollbar-thumb { background: #3d4554; border-radius: 4px; }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: .65rem; letter-spacing: .12em; }
+  .gantt-bar { transition: width 1s ease-out; }
+  .back-to-home {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #6366f1;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 1000;
+  }
+  .back-to-home:hover,
+  .back-to-home:focus-visible {
+    background: #818cf8;
+    color: white;
+  }
+
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-ink-950/80 backdrop-blur-xl border-b border-ink-800/60">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent via-violet to-mint flex items-center justify-center font-bold text-white text-xs">JB³</div>
+      <div>
+        <div class="text-white font-semibold text-sm">AutoSocialAi</div>
+        <div class="text-ink-400 text-[10px] font-mono tracking-wider">TECHNICAL BLUEPRINT</div>
+      </div>
+    </div>
+    <div class="hidden lg:flex items-center gap-6 text-sm text-ink-300">
+      <a href="#prd" class="nav-link">PRD</a>
+      <a href="#architecture" class="nav-link">Architecture</a>
+      <a href="#tech" class="nav-link">Tech Stack</a>
+      <a href="#workflow" class="nav-link">Workflow</a>
+      <a href="#build" class="nav-link">Build Plan</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="pt-32 pb-16 px-6 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-20">
+    <div class="absolute top-20 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-40 right-1/4 w-96 h-96 bg-mint/10 rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-5xl mx-auto relative">
+    <div class="section-tag text-accent-light mb-3">TECHNICAL BLUEPRINT & EXECUTION STRATEGY</div>
+    <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+      JB³ AutoSocialAi<br>
+      <span class="gradient-text">Engineering & Product Specification</span>
+    </h1>
+    <p class="text-lg text-ink-300 max-w-3xl leading-relaxed">
+      A comprehensive technical blueprint covering the Product Requirements Document (PRD), system architecture, technology stack, workflow automation logic, and the 14-week phased build plan.
+    </p>
+    <div class="flex flex-wrap gap-3 mt-8">
+      <div class="px-4 py-2 rounded-full bg-ink-800/60 border border-ink-700/50 text-sm text-ink-200 font-mono text-xs">v1.0 · Aug 2026</div>
+      <div class="px-4 py-2 rounded-full bg-ink-800/60 border border-ink-700/50 text-sm text-ink-200 font-mono text-xs">Monorepo · Event-Driven · AI-Native</div>
+    </div>
+  </div>
+</header>
+
+<!-- PRD SECTION -->
+<section id="prd" class="scroll-mt px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-tag text-accent-light mb-3">01 / PRODUCT REQUIREMENTS DOCUMENT</div>
+    <h2 class="text-3xl font-bold text-white mb-8">PRD: JB³ AutoSocialAi</h2>
+
+    <div class="grid lg:grid-cols-3 gap-6 mb-8">
+      <div class="card rounded-2xl p-6 gradient-border">
+        <h3 class="text-white font-bold mb-3">Problem Statement</h3>
+        <p class="text-sm text-ink-300 leading-relaxed">Creators and founders lose 6-10 hours weekly adapting one idea across multiple platforms. Inconsistent posting stalls growth, while copy-pasting triggers platform algorithmic penalties.</p>
+      </div>
+      <div class="card rounded-2xl p-6 gradient-border">
+        <h3 class="text-white font-bold mb-3">Proposed Solution</h3>
+        <p class="text-sm text-ink-300 leading-relaxed">An AI-native system that ingests a single 4-line idea and outputs a fully scheduled, platform-native, human-approved week of content, featuring a compound learning loop.</p>
+      </div>
+      <div class="card rounded-2xl p-6 gradient-border">
+        <h3 class="text-white font-bold mb-3">Success Metrics (KPIs)</h3>
+        <ul class="space-y-2 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">→</span> Time-to-publish reduced by 90%</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> 100% human approval rate before publish</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> 0% silent publish failures</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> 20% MoM engagement growth via compound loop</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- User Stories & Acceptance Criteria -->
+    <div class="card rounded-2xl p-8 gradient-border mb-8">
+      <h3 class="text-white font-bold text-xl mb-6">Core User Stories & Acceptance Criteria</h3>
+      <div class="space-y-4">
+        <div class="bg-ink-900/60 rounded-lg p-4 border border-ink-800">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge bg-accent/10 text-accent-light border border-accent/30 px-2 py-0.5 rounded text-xs font-mono">STORY 1</span>
+            <span class="text-white font-semibold text-sm">Content Generation</span>
+          </div>
+          <p class="text-xs text-ink-400 mb-2"><strong class="text-ink-200">As a</strong> creator, <strong class="text-ink-200">I want to</strong> input a topic, audience, goal, and CTA, <strong class="text-ink-200">so that</strong> the system generates a master post and 8 platform-specific adaptations.</p>
+          <div class="text-xs text-ink-500"><strong class="text-ink-300">Acceptance:</strong> System returns 9 unique hooks. No phrasing is reused across platforms. Output is structured via Zod schemas.</div>
+        </div>
+        <div class="bg-ink-900/60 rounded-lg p-4 border border-ink-800">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge bg-mint/10 text-mint-light border border-mint/30 px-2 py-0.5 rounded text-xs font-mono">STORY 2</span>
+            <span class="text-white font-semibold text-sm">Human Approval Gate</span>
+          </div>
+          <p class="text-xs text-ink-400 mb-2"><strong class="text-ink-200">As a</strong> user, <strong class="text-ink-200">I want to</strong> review and edit AI-generated content in a unified queue, <strong class="text-ink-200">so that</strong> I maintain brand voice control before publishing.</p>
+          <div class="text-xs text-ink-500"><strong class="text-ink-300">Acceptance:</strong> Status remains READY until explicit approval. Edits are versioned. No auto-publish occurs without APPROVED status.</div>
+        </div>
+        <div class="bg-ink-900/60 rounded-lg p-4 border border-ink-800">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge bg-rose/10 text-rose-light border border-rose/30 px-2 py-0.5 rounded text-xs font-mono">STORY 3</span>
+            <span class="text-white font-semibold text-sm">Honest Publishing & Failure Handling</span>
+          </div>
+          <p class="text-xs text-ink-400 mb-2"><strong class="text-ink-200">As a</strong> user, <strong class="text-ink-200">I want to</strong> know exactly when a post fails to publish, <strong class="text-ink-200">so that</strong> I can manually intervene and never assume content is live.</p>
+          <div class="text-xs text-ink-500"><strong class="text-ink-300">Acceptance:</strong> Failed API calls immediately transition status to FAILED. User receives alert. System never silently retries >3 times or marks as PUBLISHED without platform confirmation.</div>
+        </div>
+        <div class="bg-ink-900/60 rounded-lg p-4 border border-ink-800">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="badge bg-violet/10 text-violet-light border border-violet/30 px-2 py-0.5 rounded text-xs font-mono">STORY 4</span>
+            <span class="text-white font-semibold text-sm">Compound Analytics Loop</span>
+          </div>
+          <p class="text-xs text-ink-400 mb-2"><strong class="text-ink-200">As a</strong> creator, <strong class="text-ink-200">I want</strong> the system to analyze past performance and feed insights into the next idea generation, <strong class="text-ink-200">so that</strong> my content improves weekly.</p>
+          <div class="text-xs text-ink-500"><strong class="text-ink-300">Acceptance:</strong> Metrics are pulled every 6h. Unavailable metrics are marked N/A. Top performers are embedded and retrieved during the IDEA phase.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARCHITECTURE -->
+<section id="architecture" class="scroll-mt px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-tag text-accent-light mb-3">02 / ARCHITECTURAL LAYOUT</div>
+    <h2 class="text-3xl font-bold text-white mb-8">System Architecture</h2>
+
+    <div class="card rounded-2xl p-8 gradient-border mb-8">
+      <h3 class="text-white font-bold text-lg mb-6">High-Level Component Diagram</h3>
+      <svg viewBox="0 0 1000 450" class="w-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#667085"/></marker>
+          <linearGradient id="g-accent" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#818cf8"/></linearGradient>
+          <linearGradient id="g-mint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10b981"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+        </defs>
+
+        <!-- Client Layer -->
+        <rect x="50" y="30" width="900" height="60" rx="12" fill="#1a1f2b" stroke="#3d4554" stroke-width="1"/>
+        <text x="500" y="55" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">Client Layer (Next.js 15 Web App)</text>
+        <text x="500" y="75" text-anchor="middle" fill="#858ea1" font-size="11">Conversational Studio · Approval Queue · Compound Canvas · Analytics Dashboard</text>
+
+        <!-- API Gateway -->
+        <rect x="300" y="120" width="400" height="50" rx="8" fill="#1a1f2b" stroke="url(#g-accent)" stroke-width="2"/>
+        <text x="500" y="150" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">API Gateway (tRPC / REST / Webhooks)</text>
+
+        <!-- Core Services -->
+        <rect x="50" y="200" width="180" height="100" rx="10" fill="#1a1f2b" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="140" y="235" text-anchor="middle" fill="#818cf8" font-size="11" font-weight="600">AI Orchestrator</text>
+        <text x="140" y="255" text-anchor="middle" fill="#858ea1" font-size="10">Prompt Registry</text>
+        <text x="140" y="270" text-anchor="middle" fill="#858ea1" font-size="10">Model Router</text>
+        <text x="140" y="285" text-anchor="middle" fill="#858ea1" font-size="10">Judge Model</text>
+
+        <rect x="250" y="200" width="180" height="100" rx="10" fill="#1a1f2b" stroke="#10b981" stroke-width="1.5"/>
+        <text x="340" y="235" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">Workflow Engine</text>
+        <text x="340" y="255" text-anchor="middle" fill="#858ea1" font-size="10">State Machine</text>
+        <text x="340" y="270" text-anchor="middle" fill="#858ea1" font-size="10">Durable Execution</text>
+        <text x="340" y="285" text-anchor="middle" fill="#858ea1" font-size="10">Human Gates</text>
+
+        <rect x="450" y="200" width="180" height="100" rx="10" fill="#1a1f2b" stroke="#f59e0b" stroke-width="1.5"/>
+        <text x="540" y="235" text-anchor="middle" fill="#fbbf24" font-size="11" font-weight="600">Platform Adapters</text>
+        <text x="540" y="255" text-anchor="middle" fill="#858ea1" font-size="10">IG · TikTok · YT</text>
+        <text x="540" y="270" text-anchor="middle" fill="#858ea1" font-size="10">LinkedIn · X · etc.</text>
+        <text x="540" y="285" text-anchor="middle" fill="#858ea1" font-size="10">OAuth Vault</text>
+
+        <rect x="650" y="200" width="180" height="100" rx="10" fill="#1a1f2b" stroke="#0ea5e9" stroke-width="1.5"/>
+        <text x="740" y="235" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="600">Analytics Engine</text>
+        <text x="740" y="255" text-anchor="middle" fill="#858ea1" font-size="10">Metric Ingestion</text>
+        <text x="740" y="270" text-anchor="middle" fill="#858ea1" font-size="10">Vector Indexing</text>
+        <text x="740" y="285" text-anchor="middle" fill="#858ea1" font-size="10">Rollups & Reports</text>
+
+        <!-- Data Layer -->
+        <rect x="50" y="340" width="900" height="80" rx="12" fill="#1a1f2b" stroke="#3d4554" stroke-width="1"/>
+        <text x="500" y="370" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">Data & Infrastructure Layer</text>
+        <text x="500" y="395" text-anchor="middle" fill="#858ea1" font-size="11">PostgreSQL (Prisma + RLS) · Redis (BullMQ) · Qdrant/pgvector · S3/R2 · OpenTelemetry</text>
+
+        <!-- Arrows -->
+        <line x1="500" y1="90" x2="500" y2="115" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="500" y1="170" x2="140" y2="195" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="500" y1="170" x2="340" y2="195" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="500" y1="170" x2="540" y2="195" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="500" y1="170" x2="740" y2="195" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <line x1="140" y1="300" x2="140" y2="335" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="340" y1="300" x2="340" y2="335" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="540" y1="300" x2="540" y2="335" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="740" y1="300" x2="740" y2="335" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- Feedback Loop -->
+        <path d="M 830 250 Q 950 250 950 380 Q 950 440 50 440 Q 50 440 50 380 Q 50 250 140 250" stroke="#10b981" stroke-width="1.5" fill="none" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+        <text x="960" y="340" fill="#34d399" font-size="10" font-family="JetBrains Mono">COMPOUND</text>
+        <text x="960" y="355" fill="#34d399" font-size="10" font-family="JetBrains Mono">LOOP</text>
+      </svg>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4">Architectural Principles</h3>
+        <ul class="space-y-3 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Event-Driven:</strong> Asynchronous workflows via BullMQ. No blocking HTTP requests for AI generation.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Durable Execution:</strong> State machines persist across restarts. A server crash doesn't lose a scheduled post.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Strict Tenant Isolation:</strong> Row-Level Security (RLS) in Postgres + workspace_id scoping in all queries.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Adapter Pattern:</strong> Platform APIs are abstracted. Adding a new platform requires zero changes to the core workflow engine.</li>
+        </ul>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4">Security & Compliance</h3>
+        <ul class="space-y-3 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">OAuth Vault:</strong> Platform tokens encrypted at rest (AES-256), scoped per workspace.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">No Browser Automation:</strong> Strict adherence to official APIs to prevent account bans.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Audit Logging:</strong> Every publish attempt, token refresh, and user edit is immutably logged.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Rate Limiting:</strong> Token bucket algorithm per workspace × platform to respect API quotas.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK & WORKFLOW -->
+<section id="tech" class="scroll-mt px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-tag text-accent-light mb-3">03 / TECH STACK & WORKFLOW AUTOMATION</div>
+    <h2 class="text-3xl font-bold text-white mb-8">Technical Implementation Details</h2>
+
+    <!-- Tabs -->
+    <div class="flex flex-wrap gap-2 mb-6 border-b border-ink-800">
+      <button class="tab-btn active px-4 py-2 text-sm rounded-t-lg border border-transparent text-ink-300 transition" data-tab="stack">Technology Stack</button>
+      <button class="tab-btn px-4 py-2 text-sm rounded-t-lg border border-transparent text-ink-300 transition" data-tab="workflow">Workflow Automation</button>
+      <button class="tab-btn px-4 py-2 text-sm rounded-t-lg border border-transparent text-ink-300 transition" data-tab="data">Data Model</button>
+    </div>
+
+    <!-- STACK TAB -->
+    <div class="tab-content active" data-tab="stack">
+      <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+        <div class="card rounded-xl p-5">
+          <div class="text-accent-light font-mono text-xs mb-2">FRONTEND</div>
+          <div class="text-white font-bold mb-2">Next.js 15 + React 19</div>
+          <p class="text-xs text-ink-400 leading-relaxed">App Router, Server Components for SEO, Client Components for interactive studio. Tailwind CSS + shadcn/ui for design system. Framer Motion for compound canvas animations.</p>
+        </div>
+        <div class="card rounded-xl p-5">
+          <div class="text-mint-light font-mono text-xs mb-2">BACKEND</div>
+          <div class="text-white font-bold mb-2">NestJS + tRPC</div>
+          <p class="text-xs text-ink-400 leading-relaxed">Modular architecture mapping to the 6 core domains. tRPC for type-safe frontend communication. REST/Webhooks for external platform integrations.</p>
+        </div>
+        <div class="card rounded-xl p-5">
+          <div class="text-amber font-mono text-xs mb-2">DATABASE</div>
+          <div class="text-white font-bold mb-2">PostgreSQL + Prisma</div>
+          <p class="text-xs text-ink-400 leading-relaxed">Primary relational store. Row-Level Security (RLS) for multi-tenancy. JSONB for flexible platform metadata. Neon for serverless scaling and branching.</p>
+        </div>
+        <div class="card rounded-xl p-5">
+          <div class="text-sky-light font-mono text-xs mb-2">QUEUES & CACHE</div>
+          <div class="text-white font-bold mb-2">Redis + BullMQ</div>
+          <p class="text-xs text-ink-400 leading-relaxed">Durable job queues for AI pipelines and publishing. Rate limiting via token buckets. Session caching. BullMQ ensures retries and dead-letter handling.</p>
+        </div>
+        <div class="card rounded-xl p-5">
+          <div class="text-violet-light font-mono text-xs mb-2">AI / ML</div>
+          <div class="text-white font-bold mb-2">Vercel AI SDK + LiteLLM</div>
+          <p class="text-xs text-ink-400 leading-relaxed">Provider-agnostic model routing. Tiered model strategy (Opus for reasoning, Sonnet for adaptation, Haiku for mechanical). pgvector/Qdrant for semantic retrieval.</p>
+        </div>
+        <div class="card rounded-xl p-5">
+          <div class="text-rose-light font-mono text-xs mb-2">INFRA & OBS</div>
+          <div class="text-white font-bold mb-2">Vercel + Railway + OTel</div>
+          <p class="text-xs text-ink-400 leading-relaxed">Frontend on Vercel edge. Backend workers on Railway. OpenTelemetry for distributed tracing across AI calls, queues, and DB queries. Axiom for log aggregation.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW TAB -->
+    <div class="tab-content" data-tab="workflow">
+      <div class="card rounded-2xl p-6 mb-6">
+        <h3 class="text-white font-bold mb-4">The Core State Machine</h3>
+        <p class="text-sm text-ink-300 mb-6">Every piece of content flows through a strict, auditable state machine. Transitions are triggered by user actions, cron jobs, or webhook events.</p>
+
+        <div class="flex flex-wrap items-center justify-center gap-2 mb-6">
+          <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-accent/50 text-accent-light font-mono text-sm font-bold">DRAFT</div>
+          <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-amber/50 text-amber font-mono text-sm font-bold">READY</div>
+          <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-mint/50 text-mint-light font-mono text-sm font-bold">APPROVED</div>
+          <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-sky/50 text-sky-light font-mono text-sm font-bold">SCHEDULED</div>
+          <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+          <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-mint/50 text-mint-light font-mono text-sm font-bold">PUBLISHED</div>
+          <span class="text-ink-500 mx-2">or</span>
+          <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-rose/50 text-rose-light font-mono text-sm font-bold">FAILED</div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4">
+          <div class="bg-ink-950/60 rounded-lg p-4 border border-ink-800">
+            <div class="text-white font-semibold text-sm mb-2">Transition Rules</div>
+            <ul class="space-y-2 text-xs text-ink-300">
+              <li class="flex gap-2"><span class="text-accent-light">→</span> <strong>DRAFT → READY:</strong> AI generation completes successfully and passes the Judge Model quality gate.</li>
+              <li class="flex gap-2"><span class="text-amber">→</span> <strong>READY → APPROVED:</strong> User explicitly clicks "Approve" in the UI. Edits reset to READY.</li>
+              <li class="flex gap-2"><span class="text-mint-light">→</span> <strong>APPROVED → SCHEDULED:</strong> Scheduler worker resolves optimal time based on workspace prefs + historical data.</li>
+              <li class="flex gap-2"><span class="text-sky-light">→</span> <strong>SCHEDULED → PUBLISHED:</strong> Cron triggers publish worker. Platform API returns 2xx with confirmed media ID.</li>
+              <li class="flex gap-2"><span class="text-rose-light">→</span> <strong>ANY → FAILED:</strong> API returns 4xx/5xx, token expired, or rate limit exceeded. Alert sent to user.</li>
+            </ul>
+          </div>
+          <div class="bg-ink-950/60 rounded-lg p-4 border border-ink-800">
+            <div class="text-white font-semibold text-sm mb-2">Automation Triggers</div>
+            <ul class="space-y-2 text-xs text-ink-300">
+              <li class="flex gap-2"><span class="text-violet-light">⏱</span> <strong>Cron (Every 30s):</strong> Scans for SCHEDULED posts due for publishing. Enqueues to platform-specific worker queues.</li>
+              <li class="flex gap-2"><span class="text-violet-light">⏱</span> <strong>Cron (Every 6h):</strong> Pulls analytics metrics from connected platforms. Updates engagement rollups.</li>
+              <li class="flex gap-2"><span class="text-violet-light">🪝</span> <strong>Webhooks:</strong> Ingests real-time events (e.g., token revocation, platform rate limit warnings) to update account health.</li>
+              <li class="flex gap-2"><span class="text-violet-light"></span> <strong>Event Bus:</strong> Internal events (e.g., `post.published`) trigger downstream analytics indexing and embedding updates.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DATA TAB -->
+    <div class="tab-content" data-tab="data">
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4">Core Data Entities (Prisma Schema Overview)</h3>
+        <div class="bg-ink-950/60 rounded-lg p-4 border border-ink-800 font-mono text-xs text-ink-300 leading-relaxed overflow-x-auto">
+<span class="text-accent-light">model</span> Workspace {<br>
+&nbsp;&nbsp;id        String  <span class="text-mint-light">@id @default(cuid())</span><br>
+&nbsp;&nbsp;name      String<br>
+&nbsp;&nbsp;brandVoice Json?   <span class="text-ink-500">// Tone, forbidden phrases, examples</span><br>
+&nbsp;&nbsp;users     User[]<br>
+&nbsp;&nbsp;posts     Post[]<br>
+}<br><br>
+<span class="text-accent-light">model</span> Post {<br>
+&nbsp;&nbsp;id          String   <span class="text-mint-light">@id @default(cuid())</span><br>
+&nbsp;&nbsp;workspaceId String<br>
+&nbsp;&nbsp;status      PostStatus <span class="text-ink-500">// DRAFT | READY | APPROVED | SCHEDULED | PUBLISHED | FAILED</span><br>
+&nbsp;&nbsp;masterContent Json   <span class="text-ink-500">// Hook, Body, Value, CTA</span><br>
+&nbsp;&nbsp;platforms   PlatformPost[]<br>
+&nbsp;&nbsp;scheduledAt DateTime?<br>
+&nbsp;&nbsp;publishedAt DateTime?<br>
+}<br><br>
+<span class="text-accent-light">model</span> PlatformPost {<br>
+&nbsp;&nbsp;id          String   <span class="text-mint-light">@id @default(cuid())</span><br>
+&nbsp;&nbsp;postId      String<br>
+&nbsp;&nbsp;platform    Platform <span class="text-ink-500">// INSTAGRAM | TIKTOK | LINKEDIN...</span><br>
+&nbsp;&nbsp;adaptedContent Json  <span class="text-ink-500">// Platform-specific text, media refs</span><br>
+&nbsp;&nbsp;caption     Json<br>
+&nbsp;&nbsp;externalId  String?  <span class="text-ink-500">// ID returned by platform API upon publish</span><br>
+&nbsp;&nbsp;metrics     Json?    <span class="text-ink-500">// Views, likes, etc. Null if N/A</span><br>
+}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD PLAN -->
+<section id="build" class="scroll-mt px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-tag text-accent-light mb-3">04 / 14-WEEK BUILD PLAN</div>
+    <h2 class="text-3xl font-bold text-white mb-8">Phased Execution Strategy</h2>
+
+    <div class="space-y-6">
+      <!-- Phase 1 -->
+      <div class="card rounded-2xl p-6 gradient-border">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center font-mono text-accent-light font-bold text-sm">P1</div>
+            <div>
+              <div class="text-white font-bold text-lg">Foundation & Core AI (Weeks 1-4)</div>
+              <div class="text-xs text-ink-400 font-mono">MODULES: IDEA, WRITE, ADAPT</div>
+            </div>
+          </div>
+          <span class="badge bg-accent/10 text-accent-light border border-accent/30">MVP CORE</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">DELIVERABLES</div>
+            <ul class="space-y-1.5 text-sm text-ink-300">
+              <li>• Turborepo monorepo scaffolded (apps/web, apps/api, packages/shared)</li>
+              <li>• Auth (Clerk) + Workspace isolation (RLS) implemented</li>
+              <li>• AI Orchestrator with Prompt Registry & Model Router</li>
+              <li>• M1 (Idea) & M2 (Write) endpoints + streaming UI</li>
+              <li>• M3 (Adapt) with 8 parallel platform calls + Judge Model</li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">EXIT CRITERIA</div>
+            <div class="bg-ink-950/60 rounded-lg p-3 border border-ink-800 text-sm text-ink-300">
+              User can input 4 lines, receive a master post, and view 8 adapted platform versions with unique hooks. All outputs are Zod-validated and streamed to the UI.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 2 -->
+      <div class="card rounded-2xl p-6 gradient-border">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-mint/20 flex items-center justify-center font-mono text-mint-light font-bold text-sm">P2</div>
+            <div>
+              <div class="text-white font-bold text-lg">Workflow & Publishing (Weeks 5-9)</div>
+              <div class="text-xs text-ink-400 font-mono">MODULES: SCHEDULE, PUBLISH</div>
+            </div>
+          </div>
+          <span class="badge bg-mint/10 text-mint-light border border-mint/30">OPERATIONAL</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">DELIVERABLES</div>
+            <ul class="space-y-1.5 text-sm text-ink-300">
+              <li>• Post Status State Machine implemented in DB + API</li>
+              <li>• Approval Queue UI with inline editing (TipTap)</li>
+              <li>• BullMQ Scheduler + Cron dispatcher for due posts</li>
+              <li>• Platform Adapters (Instagram, LinkedIn, X) with OAuth vault</li>
+              <li>• Idempotent publish attempts + FAILED-state alerting</li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">EXIT CRITERIA</div>
+            <div class="bg-ink-950/60 rounded-lg p-3 border border-ink-800 text-sm text-ink-300">
+              User can approve a post, schedule it for a future date, and have it automatically publish to Instagram/LinkedIn/X. Failed publishes correctly mark as FAILED and alert the user.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="card rounded-2xl p-6 gradient-border">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-violet/20 flex items-center justify-center font-mono text-violet-light font-bold text-sm">P3</div>
+            <div>
+              <div class="text-white font-bold text-lg">Analytics & Compound Loop (Weeks 10-12)</div>
+              <div class="text-xs text-ink-400 font-mono">MODULE: TRACK</div>
+            </div>
+          </div>
+          <span class="badge bg-violet/10 text-violet-light border border-violet/30">COMPETITIVE MOAT</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">DELIVERABLES</div>
+            <ul class="space-y-1.5 text-sm text-ink-300">
+              <li>• Analytics ingestion cron (every 6h) with honest N/A handling</li>
+              <li>• Prompt 5 (Analyze Performance) integrated</li>
+              <li>• pgvector embeddings for top-performing posts</li>
+              <li>• Context assembly pipeline: retrieving past winners for M1/M2</li>
+              <li>• Compound Canvas UI (React Flow visualization)</li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">EXIT CRITERIA</div>
+            <div class="bg-ink-950/60 rounded-lg p-3 border border-ink-800 text-sm text-ink-300">
+              System automatically pulls metrics, generates an analysis report, and uses the top-performing hooks/formats as context for the next idea generation cycle.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="card rounded-2xl p-6 gradient-border">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-mint flex items-center justify-center font-mono text-white font-bold text-sm">★</div>
+            <div>
+              <div class="text-white font-bold text-lg">Polish, QA & Launch (Weeks 13-14)</div>
+              <div class="text-xs text-ink-400 font-mono">SYSTEM INTEGRATION</div>
+            </div>
+          </div>
+          <span class="badge bg-mint/10 text-mint-light border border-mint/30">SHIP</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">DELIVERABLES</div>
+            <ul class="space-y-1.5 text-sm text-ink-300">
+              <li>• End-to-end load testing (100 concurrent workspaces)</li>
+              <li>• Security audit (workspace isolation, OAuth token handling)</li>
+              <li>• Billing integration (Stripe) + token budget enforcement</li>
+              <li>• Onboarding flow + workspace setup wizard</li>
+              <li>• Monitoring dashboards (OpenTelemetry + Axiom)</li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">EXIT CRITERIA</div>
+            <div class="bg-ink-950/60 rounded-lg p-3 border border-ink-800 text-sm text-ink-300">
+              JB³ AutoSocialAi is live, stable, and ready for founding clients. All 6 modules are integrated, the compound loop is active, and the system handles failures honestly.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Resource Allocation -->
+    <div class="card rounded-2xl p-6 mt-8">
+      <h3 class="text-white font-bold mb-4">Resource Allocation & AI Agent Strategy</h3>
+      <div class="grid md:grid-cols-4 gap-4 text-sm">
+        <div class="bg-ink-900/60 rounded-lg p-4 border border-ink-800">
+          <div class="text-accent-light font-mono text-xs mb-2">HUMAN (YOU)</div>
+          <div class="text-white font-semibold mb-2">Architecture & Product</div>
+          <ul class="space-y-1 text-xs text-ink-400">
+            <li>• System design decisions</li>
+            <li>• PRD & acceptance criteria</li>
+            <li>• Final code reviews</li>
+            <li>• Platform policy interpretation</li>
+          </ul>
+        </div>
+        <div class="bg-ink-900/60 rounded-lg p-4 border border-ink-800">
+          <div class="text-mint-light font-mono text-xs mb-2">CLAUDE SONNET 4.5</div>
+          <div class="text-white font-semibold mb-2">Primary Builder (Cline)</div>
+          <ul class="space-y-1 text-xs text-ink-400">
+            <li>• Feature implementation (80%)</li>
+            <li>• Unit & integration tests</li>
+            <li>• UI component construction</li>
+            <li>• Bug fixing & refactoring</li>
+          </ul>
+        </div>
+        <div class="bg-ink-900/60 rounded-lg p-4 border border-ink-800">
+          <div class="text-violet-light font-mono text-xs mb-2">CLAUDE OPUS 4.1</div>
+          <div class="text-white font-semibold mb-2">Architect & Debugger</div>
+          <ul class="space-y-1 text-xs text-ink-400">
+            <li>• Complex state machine logic</li>
+            <li>• AI orchestration layer</li>
+            <li>• Cross-module integration bugs</li>
+            <li>• Security & isolation audits</li>
+          </ul>
+        </div>
+        <div class="bg-ink-900/60 rounded-lg p-4 border border-ink-800">
+          <div class="text-sky-light font-mono text-xs mb-2">GPT-5 CODEX</div>
+          <div class="text-white font-semibold mb-2">Background Tasks</div>
+          <ul class="space-y-1 text-xs text-ink-400">
+            <li>• Overnight test generation</li>
+            <li>• Boilerplate scaffolding</li>
+            <li>• Documentation writing</li>
+            <li>• Spec-driven compliance checks</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="px-6 py-16 border-t border-ink-800">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-ink-500 font-mono">
+      <span>JB³ AUTOSOCIALAI · TECHNICAL BLUEPRINT · v1.0</span>
+      <span>One idea in. Every platform out.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      const parent = btn.closest('section');
+      parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      parent.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      parent.querySelector(`.tab-content[data-tab="${tab}"]`).classList.add('active');
+    });
+  });
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 120;
+      if (window.scrollY >= top) current = section.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+    });
+  });
+</script>
+<a href="index.html" class="back-to-home" aria-label="Return to the JB³ AutoSocialAi home page">← Back to Home</a>
+</body>
+</html>

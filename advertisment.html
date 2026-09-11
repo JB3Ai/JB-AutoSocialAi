@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JB³ AutoSocialAi — Client Brief</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-800-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/jetbrains-mono@latest/latin-400-normal.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: {
+          sans: ['Inter', 'system-ui', 'sans-serif'],
+          mono: ['JetBrains Mono', 'monospace'],
+        },
+        colors: {
+          ink: { 50:'#f6f7f9', 100:'#eceef2', 200:'#d5d9e2', 300:'#b0b7c5', 400:'#858ea1', 500:'#667085', 600:'#4f5769', 700:'#3d4554', 800:'#2a3040', 900:'#1a1f2b', 950:'#0f1219' },
+          accent: { DEFAULT:'#6366f1', light:'#818cf8', dark:'#4f46e5' },
+          mint: { DEFAULT:'#10b981', light:'#34d399' },
+          amber: { DEFAULT:'#f59e0b', light:'#fbbf24' },
+          rose: { DEFAULT:'#f43f5e', light:'#fb7185' },
+          sky: { DEFAULT:'#0ea5e9', light:'#38bdf8' },
+          violet: { DEFAULT:'#8b5cf6', light:'#a78bfa' },
+        }
+      }
+    }
+  }
+</script>
+<style>
+  body { font-family: 'Inter', sans-serif; background: #0f1219; color: #d5d9e2; }
+  .gradient-text { background: linear-gradient(135deg, #818cf8 0%, #6366f1 40%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .gradient-border { position: relative; }
+  .gradient-border::before { content:''; position:absolute; inset:0; padding:1px; border-radius:inherit; background:linear-gradient(135deg, rgba(99,102,241,.5), rgba(16,185,129,.3)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; }
+  .card { background: linear-gradient(180deg, rgba(42,48,64,.6) 0%, rgba(26,31,43,.6) 100%); backdrop-filter: blur(12px); }
+  .page { width: 210mm; min-height: 297mm; margin: 2rem auto; padding: 16mm 14mm; background: #0f1219; position: relative; box-shadow: 0 20px 60px -20px rgba(0,0,0,.6); border: 1px solid rgba(99,102,241,.15); border-radius: 8px; }
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; margin: 0; page-break-after: always; }
+  }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: .65rem; letter-spacing: .12em; }
+  .flow-step { position: relative; }
+  .flow-step::after { content:''; position:absolute; right:-14px; top:50%; width:14px; height:1px; background:linear-gradient(90deg,#6366f1,transparent); }
+  .flow-step:last-child::after { display:none; }
+  .problem-card { background: linear-gradient(135deg, rgba(244,63,94,.08) 0%, rgba(26,31,43,.6) 100%); border: 1px solid rgba(244,63,94,.2); }
+  .solution-card { background: linear-gradient(135deg, rgba(16,185,129,.08) 0%, rgba(26,31,43,.6) 100%); border: 1px solid rgba(16,185,129,.2); }
+  .platform-icon { width: 32px; height: 32px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 11px; }
+  .stat-number { font-size: 3rem; font-weight: 800; line-height: 1; letter-spacing: -0.04em; }
+  .back-to-home {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #6366f1;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 1000;
+  }
+</style>
+</head>
+<body class="min-h-screen py-8">
+
+<!-- ==================== PAGE 1 ==================== -->
+<div class="page">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-10 pb-5 border-b border-ink-800">
+    <div class="flex items-center gap-3">
+      <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-accent via-violet to-mint flex items-center justify-center font-extrabold text-white text-sm">JB³</div>
+      <div>
+        <div class="text-white font-bold text-base leading-tight">AutoSocialAi</div>
+        <div class="text-ink-400 text-[10px] font-mono tracking-widest">CLIENT BRIEF · 2026</div>
+      </div>
+    </div>
+    <div class="text-right">
+      <div class="text-xs text-ink-500 font-mono">CONFIDENTIAL</div>
+      <div class="text-xs text-ink-400">Prepared for prospective clients</div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="mb-10">
+    <div class="section-tag text-accent-light mb-3">ONE IDEA IN · EVERY PLATFORM OUT</div>
+    <h1 class="text-5xl font-extrabold text-white leading-[1.05] mb-5 tracking-tight">
+      Stop creating content<br>
+      <span class="gradient-text">nine times a week.</span><br>
+      Create it <em class="font-serif italic font-normal text-ink-200">once.</em>
+    </h1>
+    <p class="text-lg text-ink-300 leading-relaxed max-w-[560px]">
+      JB³ AutoSocialAi is an AI system that takes a single idea and turns it into a full week of native, platform-ready content — written, adapted, captioned, scheduled, and tracked across <span class="text-white font-semibold">eight social platforms</span>.
+    </p>
+  </div>
+
+  <!-- THE PROBLEM -->
+  <div class="problem-card rounded-2xl p-6 mb-5">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-xl bg-rose/15 flex items-center justify-center flex-shrink-0">
+        <svg class="w-6 h-6 text-rose-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      </div>
+      <div>
+        <div class="section-tag text-rose-light mb-1">THE KEY PROBLEM WE SOLVE</div>
+        <h2 class="text-white font-bold text-xl mb-2">The blank-page problem — multiplied by eight.</h2>
+        <p class="text-sm text-ink-300 leading-relaxed">
+          Creators and founders don't lack ideas. They lack the <span class="text-white font-semibold">time to turn one idea into eight different posts</span>, each written in a different platform's native voice, with different hooks, different formats, different captions. So they post on one platform, ignore the rest, and watch their audience grow slowly — or burn out trying.
+        </p>
+        <div class="flex flex-wrap gap-2 mt-4">
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">⏱ 6-10 hrs/week lost to content creation</div>
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">📉 Inconsistent posting = stalled growth</div>
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">🎭 Same post copy-pasted everywhere = platform penalties</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE SOLUTION -->
+  <div class="solution-card rounded-2xl p-6 mb-8">
+    <div class="flex items-start gap-4">
+      <div class="w-12 h-12 rounded-xl bg-mint/15 flex items-center justify-center flex-shrink-0">
+        <svg class="w-6 h-6 text-mint-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+      </div>
+      <div>
+        <div class="section-tag text-mint-light mb-1">THE JB³ SOLUTION</div>
+        <h2 class="text-white font-bold text-xl mb-2">One idea. Six steps. Eight platforms. Fully automated.</h2>
+        <p class="text-sm text-ink-300 leading-relaxed">
+          Give the system four lines — <span class="text-white font-mono text-xs">topic, audience, goal, CTA</span> — and it handles the rest. The writing, the adapting, the captions, the scheduling, the publishing, and the learning. You review before anything goes live. That's it.
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- THE FLOW -->
+  <div class="mb-8">
+    <div class="section-tag text-accent-light mb-3">THE SIX-STEP FLOW</div>
+    <h3 class="text-white font-bold text-xl mb-5">From one idea to a full week of content</h3>
+
+    <div class="grid grid-cols-6 gap-2 mb-4">
+      <div class="flow-step">
+        <div class="bg-accent/10 border border-accent/30 rounded-lg p-3 h-full">
+          <div class="text-accent-light font-mono text-[10px] mb-1">01</div>
+          <div class="text-white font-bold text-sm mb-1">IDEA</div>
+          <div class="text-[11px] text-ink-400 leading-tight">One topic becomes 9 platform concepts</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="bg-mint/10 border border-mint/30 rounded-lg p-3 h-full">
+          <div class="text-mint-light font-mono text-[10px] mb-1">02</div>
+          <div class="text-white font-bold text-sm mb-1">WRITE</div>
+          <div class="text-[11px] text-ink-400 leading-tight">Master version with 3 hook options</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="bg-amber/10 border border-amber/30 rounded-lg p-3 h-full">
+          <div class="text-amber font-mono text-[10px] mb-1">03</div>
+          <div class="text-white font-bold text-sm mb-1">ADAPT</div>
+          <div class="text-[11px] text-ink-400 leading-tight">8 native versions, 8 unique hooks</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="bg-sky/10 border border-sky/30 rounded-lg p-3 h-full">
+          <div class="text-sky-light font-mono text-[10px] mb-1">04</div>
+          <div class="text-white font-bold text-sm mb-1">SCHEDULE</div>
+          <div class="text-[11px] text-ink-400 leading-tight">Day-by-day plan, best times</div>
+        </div>
+      </div>
+      <div class="flow-step">
+        <div class="bg-rose/10 border border-rose/30 rounded-lg p-3 h-full">
+          <div class="text-rose-light font-mono text-[10px] mb-1">05</div>
+          <div class="text-white font-bold text-sm mb-1">POST</div>
+          <div class="text-[11px] text-ink-400 leading-tight">Auto where possible, manual where required</div>
+        </div>
+      </div>
+      <div>
+        <div class="bg-violet/10 border border-violet/30 rounded-lg p-3 h-full">
+          <div class="text-violet-light font-mono text-[10px] mb-1">06</div>
+          <div class="text-white font-bold text-sm mb-1">TRACK</div>
+          <div class="text-[11px] text-ink-400 leading-tight">Analytics feed the next idea</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flex items-center gap-2 text-xs text-ink-400 bg-ink-900/40 rounded-lg px-4 py-2.5 border border-ink-800">
+      <svg class="w-4 h-4 text-mint-light flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/></svg>
+      <span><span class="text-mint-light font-semibold">The compound loop:</span> Step 6 feeds back into Step 1. Every week the system gets smarter about what works for <em>your</em> audience.</span>
+    </div>
+  </div>
+
+  <!-- PLATFORMS -->
+  <div>
+    <div class="section-tag text-accent-light mb-3">PLATFORM COVERAGE</div>
+    <h3 class="text-white font-bold text-lg mb-4">Eight platforms. One workflow.</h3>
+    <div class="grid grid-cols-4 gap-2">
+      <div class="flex items-center gap-2 bg-ink-900/60 rounded-lg p-2.5 border border-ink-800">
+        <div class="platform-icon bg-gradient-to-br from-pink-500 to-purple-600 text-white">IG</div>
+        <div>
+          <div class="text-white text-xs font-semibold">Instagram</div>
+          <div class="text-[10px] text-ink-400">Carousel · Reel · Static</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-ink-900/60 rounded-lg p-2.5 border border-ink-800">
+        <div class="platform-icon bg-gradient-to-br from-slate-800 to-black text-white border border-ink-700">TT</div>
+        <div>
+          <div class="text-white text-xs font-semibold">TikTok</div>
+          <div class="text-[10px] text-ink-400">Video · Photo</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-ink-900/60 rounded-lg p-2.5 border border-ink-800">
+        <div class="platform-icon bg-gradient-to-br from-red-600 to-red-700 text-white">YT</div>
+        <div>
+          <div class="text-white text-xs font-semibold">YouTube</div>
+          <div class="text-[10px] text-ink-400">Shorts</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-ink-900/60 rounded-lg p-2.5 border border-ink-800">
+        <div class="platform-icon bg-gradient-to-br from-blue-700 to-blue-800 text-white">in</div>
+        <div>
+          <div class="text-white text-xs font-semibold">LinkedIn</div>
+          <div class="text-[10px] text-ink-400">Post · Article</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-ink-900/60 rounded-lg p-2.5 border border-ink-800">
+        <div class="platform-icon bg-black text-white border border-ink-700">𝕏</div>
+        <div>
+          <div class="text-white text-xs font-semibold">X (Twitter)</div>
+          <div class="text-[10px] text-ink-400">Post · Thread</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-ink-900/60 rounded-lg p-2.5 border border-ink-800">
+        <div class="platform-icon bg-black text-white border border-ink-700">@</div>
+        <div>
+          <div class="text-white text-xs font-semibold">Threads</div>
+          <div class="text-[10px] text-ink-400">Conversational</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-ink-900/60 rounded-lg p-2.5 border border-ink-800">
+        <div class="platform-icon bg-gradient-to-br from-red-500 to-red-600 text-white">P</div>
+        <div>
+          <div class="text-white text-xs font-semibold">Pinterest</div>
+          <div class="text-[10px] text-ink-400">Pin · Video</div>
+        </div>
+      </div>
+      <div class="flex items-center gap-2 bg-ink-900/60 rounded-lg p-2.5 border border-ink-800">
+        <div class="platform-icon bg-gradient-to-br from-orange-600 to-orange-700 text-white">R/</div>
+        <div>
+          <div class="text-white text-xs font-semibold">Reddit</div>
+          <div class="text-[10px] text-ink-400">Discussion (manual)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="absolute bottom-8 left-14 right-14 flex items-center justify-between text-[10px] text-ink-500 font-mono border-t border-ink-800 pt-3">
+    <span>JB³ AUTOSOCIALAI · CLIENT BRIEF</span>
+    <span>PAGE 1 / 2</span>
+    <span>CONFIDENTIAL</span>
+  </div>
+</div>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page">
+  <!-- Header -->
+  <div class="flex items-center justify-between mb-8 pb-4 border-b border-ink-800">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent via-violet to-mint flex items-center justify-center font-extrabold text-white text-xs">JB³</div>
+      <div class="text-white font-bold text-sm">AutoSocialAi</div>
+    </div>
+    <div class="text-xs text-ink-500 font-mono">CLIENT BRIEF · PAGE 2</div>
+  </div>
+
+  <!-- HOW IT PRACTICALLY WORKS -->
+  <div class="mb-7">
+    <div class="section-tag text-accent-light mb-2">HOW IT PRACTICALLY WORKS</div>
+    <h2 class="text-2xl font-bold text-white mb-4">A week of content in under 15 minutes of your time</h2>
+
+    <div class="grid grid-cols-2 gap-3 mb-4">
+      <div class="card rounded-xl p-4 border border-ink-800">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-7 h-7 rounded-lg bg-accent/20 flex items-center justify-center font-mono text-accent-light text-xs font-bold">1</div>
+          <div class="text-white font-semibold text-sm">You type four lines</div>
+        </div>
+        <div class="text-xs text-ink-400 leading-relaxed">Topic, audience, goal, CTA. That's the entire input. Example: <span class="text-ink-200 font-mono">"3 AI automations that save time / creators / educate / comment AUTO"</span></div>
+      </div>
+      <div class="card rounded-xl p-4 border border-ink-800">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-7 h-7 rounded-lg bg-mint/20 flex items-center justify-center font-mono text-mint-light text-xs font-bold">2</div>
+          <div class="text-white font-semibold text-sm">AI writes the master version</div>
+        </div>
+        <div class="text-xs text-ink-400 leading-relaxed">Hook (3 options), body, value, CTA. The full-fat version of your idea. You pick your favorite hook.</div>
+      </div>
+      <div class="card rounded-xl p-4 border border-ink-800">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-7 h-7 rounded-lg bg-amber/20 flex items-center justify-center font-mono text-amber text-xs font-bold">3</div>
+          <div class="text-white font-semibold text-sm">AI adapts for 8 platforms</div>
+        </div>
+        <div class="text-xs text-ink-400 leading-relaxed">Each platform gets its own hook, its own tone, its own format. LinkedIn reads like LinkedIn. TikTok reads like TikTok. Never the same post twice.</div>
+      </div>
+      <div class="card rounded-xl p-4 border border-ink-800">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-7 h-7 rounded-lg bg-sky/20 flex items-center justify-center font-mono text-sky-light text-xs font-bold">4</div>
+          <div class="text-white font-semibold text-sm">Captions + schedule generated</div>
+        </div>
+        <div class="text-xs text-ink-400 leading-relaxed">Platform-specific captions using proven formulas. A day-by-day week plan with optimal posting times based on your past performance.</div>
+      </div>
+      <div class="card rounded-xl p-4 border border-ink-800">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-7 h-7 rounded-lg bg-rose/20 flex items-center justify-center font-mono text-rose-light text-xs font-bold">5</div>
+          <div class="text-white font-semibold text-sm">You review & approve</div>
+        </div>
+        <div class="text-xs text-ink-400 leading-relaxed">Nothing goes live without your sign-off. Edit inline, reject what doesn't fit, approve what's ready. Takes ~5 minutes.</div>
+      </div>
+      <div class="card rounded-xl p-4 border border-ink-800">
+        <div class="flex items-center gap-2 mb-2">
+          <div class="w-7 h-7 rounded-lg bg-violet/20 flex items-center justify-center font-mono text-violet-light text-xs font-bold">6</div>
+          <div class="text-white font-semibold text-sm">System publishes + learns</div>
+        </div>
+        <div class="text-xs text-ink-400 leading-relaxed">Auto-publishes where APIs allow. Manual prompts where they don't. Tracks results. Feeds learnings back into next week's content.</div>
+      </div>
+    </div>
+
+    <div class="bg-mint/5 border border-mint/20 rounded-lg p-3 text-xs text-mint-light flex items-start gap-2">
+      <svg class="w-4 h-4 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+      <span><strong class="text-white">Honest by design:</strong> We only use official APIs and approved scheduling tools. No browser automation. No silent failures. If a post can't publish, you'll know — it's marked FAILED, never secretly marked PUBLISHED.</span>
+    </div>
+  </div>
+
+  <!-- KEY FEATURES -->
+  <div class="mb-7">
+    <div class="section-tag text-accent-light mb-2">KEY FEATURES</div>
+    <h2 class="text-2xl font-bold text-white mb-4">What makes JB³ different</h2>
+
+    <div class="grid grid-cols-3 gap-3">
+      <div class="bg-ink-900/40 rounded-xl p-4 border border-ink-800">
+        <div class="text-accent-light font-mono text-[10px] mb-2">FEATURE 01</div>
+        <div class="text-white font-bold text-sm mb-1.5">Compound Learning Loop</div>
+        <div class="text-xs text-ink-400 leading-relaxed">Every week's performance feeds into next week's ideas. The system learns what hooks, formats, and platforms work <em>for you</em>.</div>
+      </div>
+      <div class="bg-ink-900/40 rounded-xl p-4 border border-ink-800">
+        <div class="text-mint-light font-mono text-[10px] mb-2">FEATURE 02</div>
+        <div class="text-white font-bold text-sm mb-1.5">Native Platform Tone</div>
+        <div class="text-xs text-ink-400 leading-relaxed">Nine versions, nine unique hooks. LinkedIn reads professional. TikTok reads fast. Reddit reads useful. Never copy-paste.</div>
+      </div>
+      <div class="bg-ink-900/40 rounded-xl p-4 border border-ink-800">
+        <div class="text-amber font-mono text-[10px] mb-2">FEATURE 03</div>
+        <div class="text-white font-bold text-sm mb-1.5">Human-in-the-Loop</div>
+        <div class="text-xs text-ink-400 leading-relaxed">Nothing posts without your approval. Your name, your voice, your reputation — protected by a mandatory review gate.</div>
+      </div>
+      <div class="bg-ink-900/40 rounded-xl p-4 border border-ink-800">
+        <div class="text-sky-light font-mono text-[10px] mb-2">FEATURE 04</div>
+        <div class="text-white font-bold text-sm mb-1.5">Honest Analytics</div>
+        <div class="text-xs text-ink-400 leading-relaxed">We show what's available. We mark the rest N/A. No invented numbers, no fake precision. Just truth you can act on.</div>
+      </div>
+      <div class="bg-ink-900/40 rounded-xl p-4 border border-ink-800">
+        <div class="text-violet-light font-mono text-[10px] mb-2">FEATURE 05</div>
+        <div class="text-white font-bold text-sm mb-1.5">Hybrid Publishing</div>
+        <div class="text-xs text-ink-400 leading-relaxed">Auto-publishes where APIs allow (IG, LinkedIn, X). Gives you pre-formatted copy where they don't (Reddit, Threads DMs).</div>
+      </div>
+      <div class="bg-ink-900/40 rounded-xl p-4 border border-ink-800">
+        <div class="text-rose-light font-mono text-[10px] mb-2">FEATURE 06</div>
+        <div class="text-white font-bold text-sm mb-1.5">Workspace Isolation</div>
+        <div class="text-xs text-ink-400 leading-relaxed">Manage multiple brands or clients from one account. Every brand's voice, data, and tokens stay completely separate.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BENEFITS / STATS -->
+  <div class="mb-7">
+    <div class="section-tag text-accent-light mb-2">THE BENEFITS</div>
+    <h2 class="text-2xl font-bold text-white mb-4">What changes for you</h2>
+
+    <div class="grid grid-cols-4 gap-3 mb-4">
+      <div class="text-center">
+        <div class="stat-number gradient-text">90%</div>
+        <div class="text-xs text-ink-400 mt-1">less time on content creation</div>
+      </div>
+      <div class="text-center">
+        <div class="stat-number gradient-text">8×</div>
+        <div class="text-xs text-ink-400 mt-1">more platforms from one idea</div>
+      </div>
+      <div class="text-center">
+        <div class="stat-number gradient-text">15<span class="text-2xl">min</span></div>
+        <div class="text-xs text-ink-400 mt-1">your weekly time investment</div>
+      </div>
+      <div class="text-center">
+        <div class="stat-number gradient-text">∞</div>
+        <div class="text-xs text-ink-400 mt-1">compounding improvement</div>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+      <div class="flex gap-3 bg-ink-900/40 rounded-lg p-3 border border-ink-800">
+        <div class="text-mint-light text-lg">✓</div>
+        <div class="text-xs text-ink-300"><strong class="text-white">No more blank-page paralysis.</strong> The system always has a starting point.</div>
+      </div>
+      <div class="flex gap-3 bg-ink-900/40 rounded-lg p-3 border border-ink-800">
+        <div class="text-mint-light text-lg">✓</div>
+        <div class="text-xs text-ink-300"><strong class="text-white">Consistent posting across all platforms.</strong> Growth compounds when you show up.</div>
+      </div>
+      <div class="flex gap-3 bg-ink-900/40 rounded-lg p-3 border border-ink-800">
+        <div class="text-mint-light text-lg">✓</div>
+        <div class="text-xs text-ink-300"><strong class="text-white">Every post is native to its platform.</strong> No more copy-paste penalties.</div>
+      </div>
+      <div class="flex gap-3 bg-ink-900/40 rounded-lg p-3 border border-ink-800">
+        <div class="text-mint-light text-lg">✓</div>
+        <div class="text-xs text-ink-300"><strong class="text-white">You stay in control.</strong> AI writes, you approve. Your voice stays yours.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="gradient-border rounded-2xl p-6 bg-gradient-to-br from-accent/10 via-ink-900 to-mint/10">
+    <div class="flex items-start justify-between gap-6">
+      <div>
+        <div class="section-tag text-mint-light mb-2">READY TO START?</div>
+        <h3 class="text-white font-bold text-xl mb-2">One idea in. Every platform out.</h3>
+        <p class="text-sm text-ink-300 leading-relaxed mb-4 max-w-md">
+          JB³ AutoSocialAi is currently in private build. We're onboarding a limited group of founding clients for early access. If you're tired of the content grind, let's talk.
+        </p>
+        <div class="flex gap-3">
+          <div class="px-4 py-2 rounded-lg bg-gradient-to-r from-accent to-mint text-white text-sm font-semibold">Book a demo →</div>
+          <div class="px-4 py-2 rounded-lg border border-ink-700 text-ink-200 text-sm">hello@jb3.ai</div>
+        </div>
+      </div>
+      <div class="text-right flex-shrink-0">
+        <div class="w-16 h-16 rounded-2xl bg-gradient-to-br from-accent via-violet to-mint flex items-center justify-center font-extrabold text-white text-xl">JB³</div>
+        <div class="text-[10px] text-ink-500 font-mono mt-2">AUTOSOCIALAI</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="absolute bottom-8 left-14 right-14 flex items-center justify-between text-[10px] text-ink-500 font-mono border-t border-ink-800 pt-3">
+    <span>JB³ AUTOSOCIALAI · CLIENT BRIEF</span>
+    <span>PAGE 2 / 2</span>
+    <span>CONFIDENTIAL</span>
+  </div>
+</div>
+
+<!-- UI RENDER OFFER -->
+<div class="max-w-[210mm] mx-auto mt-8 mb-16 px-6">
+  <div class="card rounded-2xl p-6 gradient-border">
+    <div class="flex items-start gap-4">
+      <div class="w-10 h-10 rounded-xl bg-violet/20 flex items-center justify-center flex-shrink-0">
+        <svg class="w-5 h-5 text-violet-light" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+      </div>
+      <div>
+        <div class="text-white font-bold mb-1">Want UI example images rendered?</div>
+        <p class="text-sm text-ink-300 leading-relaxed">I can generate realistic mockups to drop into this brief or use in client presentations. Just tell me which ones would help most:</p>
+        <div class="flex flex-wrap gap-2 mt-3">
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">🎨 Conversational Studio (chat-based idea input)</div>
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">📱 Platform Split View (8 native previews)</div>
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">📊 Compound Canvas (the feedback loop viz)</div>
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">📅 Approval Queue + Calendar</div>
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">📈 Honest Analytics Dashboard</div>
+          <div class="px-3 py-1.5 rounded-full bg-ink-900/60 border border-ink-800 text-xs text-ink-300">🚀 Full hero landing page</div>
+        </div>
+        <p class="text-xs text-ink-400 mt-3">Just say the word and I'll render them.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a href="index.html" class="back-to-home" aria-label="Return to the JB³ AutoSocialAi home page">← Back to Home</a>
+</body>
+</html>

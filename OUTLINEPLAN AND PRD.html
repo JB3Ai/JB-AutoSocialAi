@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JB³ AutoSocialAi - Complete System Documentation</title>
+<style>
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page-break { page-break-before: always; }
+  }
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: #1a1a1a;
+    max-width: 210mm;
+    margin: 0 auto;
+    padding: 20mm;
+    background: white;
+  }
+  h1 {
+    font-size: 28pt;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+    border-bottom: 3px solid #6366f1;
+    padding-bottom: 10px;
+  }
+  h2 {
+    font-size: 20pt;
+    color: #6366f1;
+    margin-top: 30px;
+    margin-bottom: 15px;
+  }
+  h3 {
+    font-size: 16pt;
+    color: #2d2d2d;
+    margin-top: 25px;
+    margin-bottom: 10px;
+  }
+  .codeword {
+    background: linear-gradient(135deg, #6366f1, #10b981);
+    color: white;
+    padding: 3px 12px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: inline-block;
+    margin-bottom: 20px;
+  }
+  .tagline {
+    font-size: 18pt;
+    color: #10b981;
+    font-style: italic;
+    margin: 20px 0;
+  }
+  .important-box {
+    background: #fef3c7;
+    border-left: 5px solid #f59e0b;
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+  }
+  .important-box strong {
+    color: #92400e;
+    display: block;
+    margin-bottom: 8px;
+    font-size: 14pt;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background: white;
+  }
+  th {
+    background: #6366f1;
+    color: white;
+    padding: 12px;
+    text-align: left;
+    font-weight: 600;
+  }
+  td {
+    padding: 12px;
+    border: 1px solid #e5e7eb;
+    vertical-align: top;
+  }
+  tr:nth-child(even) {
+    background: #f9fafb;
+  }
+  .prompt-box {
+    background: #f0f9ff;
+    border: 2px solid #0ea5e9;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    font-family: 'Courier New', monospace;
+    font-size: 10pt;
+    white-space: pre-wrap;
+  }
+  .prompt-title {
+    background: #0ea5e9;
+    color: white;
+    padding: 8px 15px;
+    margin: -20px -20px 15px -20px;
+    border-radius: 6px 6px 0 0;
+    font-weight: bold;
+    font-family: 'Segoe UI', sans-serif;
+  }
+  ul, ol {
+    margin: 10px 0;
+    padding-left: 30px;
+  }
+  li {
+    margin: 8px 0;
+  }
+  .checklist-item {
+    margin: 10px 0;
+    padding: 10px;
+    background: #f0fdf4;
+    border-left: 4px solid #10b981;
+    border-radius: 0 4px 4px 0;
+  }
+  .checklist-item:before {
+    content: "☐ ";
+    color: #10b981;
+    font-weight: bold;
+    margin-right: 8px;
+  }
+  .footer {
+    margin-top: 50px;
+    padding-top: 20px;
+    border-top: 2px solid #e5e7eb;
+    color: #6b7280;
+    font-size: 10pt;
+    text-align: center;
+  }
+  .gradient-text {
+    background: linear-gradient(135deg, #6366f1, #10b981);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .section-number {
+    color: #6366f1;
+    font-weight: bold;
+    margin-right: 10px;
+  }
+  .back-to-home {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #6366f1;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 1000;
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div style="text-align: center; margin: 100px 0 150px 0;">
+  <div class="codeword" style="font-size: 16pt; padding: 8px 20px;">CODEWORD: AUTO</div>
+  <h1 style="font-size: 36pt; margin: 30px 0; border: none;">BUILD AN AI THAT RUNS<br>ALL YOUR SOCIALS</h1>
+  <div class="tagline">One idea in. Every platform out.</div>
+  <div style="margin-top: 60px; font-size: 14pt; color: #6b7280;">
+    IDEA / WRITE / ADAPT / SCHEDULE / POST / TRACK
+  </div>
+  <div style="margin-top: 100px; font-size: 12pt; color: #9ca3af;">
+    Built by @seb.ai
+  </div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- IMPORTANT NOTICE -->
+<div class="important-box">
+  <strong>IMPORTANT</strong>
+  You commented AUTO — here's the whole system. Read it once, then build it once. It takes about 45 minutes to set up and then saves you hours every single week. No coding required. Everything you need is a copy-paste prompt in this doc.
+</div>
+
+<!-- SECTION 1 -->
+<h2><span class="section-number">1</span>WHAT WE'RE BUILDING</h2>
+<p style="font-size: 12pt;">Here's the whole thing in one sentence: <strong>you give the AI one idea, and it gives you back a full week of content for every platform you're on.</strong></p>
+
+<p>You stop staring at a blank screen nine times a week. You do it once.</p>
+
+<p>You give it one idea. The system then:</p>
+<ul>
+  <li>Writes the content</li>
+  <li>Adapts it for each platform</li>
+  <li>Writes platform-specific captions</li>
+  <li>Slots it into a schedule</li>
+  <li>Publishes where that's actually supported</li>
+  <li>Tracks how it performed</li>
+  <li>Uses that data to make the next round better</li>
+</ul>
+
+<div class="important-box">
+  <strong>IMPORTANT — READ THIS ONE</strong>
+  The AI does not magically log into your accounts and control every platform. Anyone telling you otherwise is selling something.
+  <br><br>
+  What's actually true: some platforms have official APIs you can publish through. Some only work through approved scheduling tools. Some need you to hit post yourself. The writing, adapting and planning is about 90% of the work — and that part is fully automatable. The final tap is often manual, and honestly that's fine. It takes ten seconds.
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="width: 50%;">FULLY AUTOMATABLE</th>
+      <th style="width: 50%;">STAYS MANUAL</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Coming up with angles</td>
+      <td>Reviewing before it goes out</td>
+    </tr>
+    <tr>
+      <td>Writing the master version</td>
+      <td>Recording video/ making visuals</td>
+    </tr>
+    <tr>
+      <td>Adapting per platform</td>
+      <td>Publishing where there's no open API</td>
+    </tr>
+    <tr>
+      <td>Writing captions and hooks</td>
+      <td>Replying to comments</td>
+    </tr>
+    <tr>
+      <td>Building the schedule</td>
+      <td>Being a human</td>
+    </tr>
+    <tr>
+      <td>Analysing what worked</td>
+      <td></td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="page-break"></div>
+
+<!-- SECTION 2 -->
+<h2><span class="section-number">2</span>ONE IDEA GOES IN</h2>
+<p style="font-size: 12pt;">Everything starts with four lines. That's the entire input.</p>
+
+<div style="background: #f3f4f6; padding: 20px; border-radius: 8px; margin: 20px 0;">
+  <strong>TOPIC:</strong><br>
+  <strong>AUDIENCE:</strong><br>
+  <strong>GOAL:</strong><br>
+  <strong>CTA:</strong>
+</div>
+
+<h3>EXAMPLE</h3>
+<div style="background: #f0fdf4; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+  <strong>TOPIC:</strong> 3 AI automations that save time<br>
+  <strong>AUDIENCE:</strong> Creators and entrepreneurs<br>
+  <strong>GOAL:</strong> Educate + drive engagement<br>
+  <strong>CTA:</strong> Comment "AUTO"
+</div>
+
+<p>That's it. Four lines becomes nine pieces of content. Here's the prompt that does it.</p>
+
+<div class="prompt-box">
+  <div class="prompt-title">COPY THIS / PROMPT 1: TURN MY IDEA INTO CONTENT</div>
+You are my content strategist. I'm giving you one idea.
+Turn it into nine platform-specific content concepts.
+
+TOPIC: [your topic]
+AUDIENCE: [who this is for]
+GOAL: [educate/engage/sell/grow]
+CTA: [what you want them to do]
+
+Give me one concept for each of these:
+
+INSTAGRAM CAROUSEL - slide-by-slide outline, 7 slides max
+INSTAGRAM REEL - hook + 3 beats + CTA, under 40 seconds
+TIKTOK - full spoken script, fast pacing, under 35 seconds
+YOUTUBE SHORT - hook + mini story + one takeaway
+LINKEDIN - story-led post, 150-200 words
+X - either one punchy post OR a 5-tweet thread, you pick
+THREADS - conversational, opinion-led, 2-3 sentences
+PINTEREST - visual concept + keyword-rich description
+REDDIT - genuinely useful discussion post, zero promo
+
+RULES:
+- Every concept must earn attention in its first line
+- Do NOT reuse the same hook twice
+- Match each platform's native tone, don't be generic
+- Keep each concept under 120 words
+- No emojis unless the platform genuinely calls for it
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 3 -->
+<h2><span class="section-number">3</span>WRITE</h2>
+<p style="font-size: 12pt;">Before you adapt anything, you need one strong master version. This is the full-fat version of your idea — everything you want to say, said well. Every platform version gets cut down from this.</p>
+
+<p>Think of it like a <strong>master recording</strong>. You mix it once, then export different formats.</p>
+
+<p>Every master version has four parts:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>PART</th>
+      <th>WHAT IT DOES</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>HOOK</strong></td>
+      <td>The first line. Stops the scroll or nothing else matters.</td>
+    </tr>
+    <tr>
+      <td><strong>BODY</strong></td>
+      <td>The actual thing you're teaching or telling.</td>
+    </tr>
+    <tr>
+      <td><strong>VALUE</strong></td>
+      <td>The specific takeaway they can use today.</td>
+    </tr>
+    <tr>
+      <td><strong>CTA</strong></td>
+      <td>One clear ask. Only one.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="prompt-box">
+  <div class="prompt-title">COPY THIS / PROMPT 2: WRITE THE MASTER VERSION</div>
+Write the master version of this content.
+This is the full version. Everything else gets cut down from it.
+
+TOPIC: [your topic]
+AUDIENCE: [who this is for]
+TONE: [direct and punchy/ warm and friendly/ dry and funny]
+GOAL: [educate/engage/sell/grow]
+CTA: [your one ask]
+
+Structure it exactly like this:
+
+HOOK
+One line. Make me stop scrolling. Give me 3 options.
+
+BODY
+The core content. Specific, not vague. Use real examples,
+real numbers, real situations. 150-250 words.
+
+VALUE
+The one thing they can go do today because they read this.
+Make it concrete enough to actually action.
+
+CTA
+One ask. Not three. Natural, not desperate.
+
+RULES:
+- Write how people talk, not how brands write
+- Cut every sentence that doesn't earn its place
+- No "in today's fast-paced world" type openers
+- If a claim needs a source, flag it instead of inventing one
+</div>
+
+<div class="important-box">
+  <strong>DO THIS NOW</strong>
+  Run Prompt 2 on one idea you've had sitting in your notes for weeks. Takes 30 seconds. You'll have your master version before you finish this page.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 4 -->
+<h2><span class="section-number">4</span>ADAPT</h2>
+
+<div class="important-box">
+  <strong>IMPORTANT</strong>
+  Do not copy-paste the same post everywhere. It's the single most common mistake and every platform punishes it. A LinkedIn post dropped onto TikTok reads like a robot. A TikTok script on LinkedIn reads like a teenager. Same idea, different clothes.
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>PLATFORM</th>
+      <th>WHAT IT WANTS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>INSTAGRAM</strong></td>
+      <td>Hook, then value, then CTA. Visual-first. Saves and shares matter more than likes.</td>
+    </tr>
+    <tr>
+      <td><strong>TIKTOK</strong></td>
+      <td>Short, curiosity-driven, fast pacing. Hook in the first 1.5 seconds or you're gone.</td>
+    </tr>
+    <tr>
+      <td><strong>YOUTUBE SHORTS</strong></td>
+      <td>Hook, then a mini story, then one clean takeaway. Slightly more patient audience.</td>
+    </tr>
+    <tr>
+      <td><strong>LINKEDIN</strong></td>
+      <td>Story, then insight, then the lesson. Personal beats corporate every time.</td>
+    </tr>
+    <tr>
+      <td><strong>X</strong></td>
+      <td>Short and punchy, or a proper thread. No middle ground. Opinions travel.</td>
+    </tr>
+    <tr>
+      <td><strong>THREADS</strong></td>
+      <td>Conversational. Like texting a smart friend. Ask things. Invite replies.</td>
+    </tr>
+    <tr>
+      <td><strong>PINTEREST</strong></td>
+      <td>Visual concept plus a keyword-rich description. It's a search engine, treat it like one.</td>
+    </tr>
+    <tr>
+      <td><strong>REDDIT</strong></td>
+      <td>Genuinely useful, zero sales energy. Promo gets you removed. Contribute first.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="prompt-box">
+  <div class="prompt-title">COPY THIS / PROMPT 3: ADAPT THIS FOR EVERY PLATFORM</div>
+Here is my master content:
+[paste your master version here]
+
+Adapt it for each platform below. Same idea, completely different execution.
+Do not reuse phrasing between versions.
+
+INSTAGRAM - hook, value, CTA. Give me the carousel slide text.
+TIKTOK - spoken script. Short, curiosity-led, fast. Under 35 sec.
+YOUTUBE SHORTS - hook, mini story, one takeaway. Under 50 sec.
+LINKEDIN - story, insight, lesson. 150-200 words. Personal tone.
+X - give me BOTH a single punchy post AND a 5-tweet thread.
+THREADS - conversational, 2-3 sentences, ends with a real question.
+PINTEREST - visual concept + keyword-rich description.
+REDDIT - useful discussion post. No promo. Suggest 2 subreddits.
+
+RULES:
+- Each version needs its own hook. Nine versions, nine hooks.
+- Match native tone per platform, don't write everything the same
+- Stay inside each platform's normal length
+- Flag anywhere the idea genuinely doesn't fit a platform rather than forcing it
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 5 -->
+<h2><span class="section-number">5</span>CAPTIONS</h2>
+<p style="font-size: 12pt;">Captions are their own job. Same content, different container. Use these formulas — they work.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>PLATFORM</th>
+      <th>CAPTION FORMULA</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>INSTAGRAM</strong></td>
+      <td>HOOK / VALUE / CTA / HASHTAGS</td>
+    </tr>
+    <tr>
+      <td><strong>TIKTOK</strong></td>
+      <td>HOOK / SHORT CAPTION / CURIOSITY LINE</td>
+    </tr>
+    <tr>
+      <td><strong>YOUTUBE SHORTS</strong></td>
+      <td>TITLE / ONE-LINE DESCRIPTION / TAGS</td>
+    </tr>
+    <tr>
+      <td><strong>LINKEDIN</strong></td>
+      <td>STORY / INSIGHT / LESSON / CTA</td>
+    </tr>
+    <tr>
+      <td><strong>X</strong></td>
+      <td>HOOK / POINTS / CTA</td>
+    </tr>
+    <tr>
+      <td><strong>THREADS</strong></td>
+      <td>OPINION / REASON / QUESTION</td>
+    </tr>
+    <tr>
+      <td><strong>PINTEREST</strong></td>
+      <td>KEYWORD TITLE / DESCRIPTION / LINK</td>
+    </tr>
+    <tr>
+      <td><strong>REDDIT</strong></td>
+      <td>HONEST TITLE / CONTEXT / QUESTION TO THE SUB</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="prompt-box">
+  <div class="prompt-title">COPY THIS / PROMPT 4: WRITE MY CAPTIONS</div>
+Write captions for every platform version of this content.
+
+CONTENT: [paste your adapted versions]
+CTA: [your one ask]
+
+Use these formulas exactly:
+
+INSTAGRAM: hook / value / CTA / hashtags
+TIKTOK: hook / short caption / curiosity line
+YOUTUBE SHORTS: title / one-line description / tags
+LINKEDIN: story / insight / lesson / CTA
+X: hook / points / CTA
+THREADS: opinion / reason / question
+PINTEREST: keyword title / description / link
+REDDIT: honest title / context / question to the sub
+
+For hashtags: give me 12 for Instagram, mixing big, medium and small reach.
+No banned or spammy tags.
+
+RULES:
+- First line of every caption must work as a standalone hook
+- Instagram captions under 150 words
+- No emoji walls
+- The CTA should feel like a natural next step, not a demand
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 6 -->
+<h2><span class="section-number">6</span>SCHEDULE</h2>
+<p style="font-size: 12pt;">One idea gives you a full week. Here's how to spread it so you're not dumping everything at once.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>DAY</th>
+      <th>WHAT GOES OUT</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>MONDAY</strong></td>
+      <td>Instagram Carousel / LinkedIn Post / X Post</td>
+    </tr>
+    <tr>
+      <td><strong>TUESDAY</strong></td>
+      <td>TikTok / YouTube Short / Threads</td>
+    </tr>
+    <tr>
+      <td><strong>WEDNESDAY</strong></td>
+      <td>Instagram Reel / Pinterest / Reddit</td>
+    </tr>
+    <tr>
+      <td><strong>THURSDAY</strong></td>
+      <td>X thread / Threads follow-up on whatever got replies</td>
+    </tr>
+    <tr>
+      <td><strong>FRIDAY</strong></td>
+      <td>Repost your best performer of the week to Stories</td>
+    </tr>
+    <tr>
+      <td><strong>WEEKEND</strong></td>
+      <td>Off. Or reply to comments. That's it.</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3>Three ways to actually schedule it:</h3>
+<ol>
+  <li><strong>Native schedulers</strong> - built into most platforms, free, no third party involved. Slowest, but zero setup and zero risk.</li>
+  <li><strong>Approved scheduling tools</strong> - one dashboard, many platforms. Easiest option for most people. Coverage varies by tool, so check before you pay.</li>
+  <li><strong>Custom integrations</strong> - only where a platform offers an official API. Most powerful, most setup. Skip this until the rest is working.</li>
+</ol>
+
+<div class="important-box">
+  <strong>IMPORTANT</strong>
+  Platforms do not all support the same automation. Some allow full API publishing. Some allow scheduling only through approved partners. Some require you to post manually. This changes regularly — always check the current rules for your platform before you build around it, and use official APIs and approved tools rather than anything that automates a logged-in browser session. That's how accounts get restricted.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 7 -->
+<h2><span class="section-number">7</span>PUBLISH</h2>
+
+<div style="background: #f0f9ff; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0; font-size: 14pt;">
+  CONTENT READY → REVIEW → APPROVE → SCHEDULE → PUBLISH
+</div>
+
+<div class="important-box">
+  <strong>IMPORTANT — NON-NEGOTIABLE DEFAULT</strong>
+  HUMAN APPROVAL REQUIRED = TRUE
+  <br><br>
+  The system should never publish without you reading it first. Not because AI is bad at writing — because it's your name on the post. One weird sentence, one wrong claim, one tone-deaf take going out at the wrong moment costs you more than the ten seconds a review takes. Keep the human in the loop. Always.
+</div>
+
+<p>Give every piece of content a status. Track it in a spreadsheet or Notion — one row per post:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>STATUS</th>
+      <th>MEANS</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>DRAFT</strong></td>
+      <td>AI wrote it, nobody's looked yet</td>
+    </tr>
+    <tr>
+      <td><strong>READY</strong></td>
+      <td>Finished and waiting for your review</td>
+    </tr>
+    <tr>
+      <td><strong>APPROVED</strong></td>
+      <td>You read it. You're happy. Cleared to go.</td>
+    </tr>
+    <tr>
+      <td><strong>SCHEDULED</strong></td>
+      <td>Queued with a date and time locked in</td>
+    </tr>
+    <tr>
+      <td><strong>PUBLISHED</strong></td>
+      <td>Live. Confirmed live, not assumed live.</td>
+    </tr>
+    <tr>
+      <td><strong>FAILED</strong></td>
+      <td>Something broke. Needs you. Never silently retried.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="important-box">
+  <strong>IMPORTANT</strong>
+  If a post can't be published automatically, the correct status is READY or FAILED — never PUBLISHED. A system that quietly marks things as posted when they weren't is worse than no system at all, because you stop checking.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 8 -->
+<h2><span class="section-number">8</span>TRACK</h2>
+<p style="font-size: 12pt;">This is the part everyone skips, and it's the part that makes the whole system compound. Without it you're just posting faster. With it, you're posting better every week.</p>
+
+<h3>What to track:</h3>
+<div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 20px 0;">
+  <div style="background: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center;">VIEWS</div>
+  <div style="background: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center;">LIKES</div>
+  <div style="background: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center;">COMMENTS</div>
+  <div style="background: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center;">SHARES</div>
+  <div style="background: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center;">SAVES</div>
+  <div style="background: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center;">CLICKS</div>
+  <div style="background: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center;">WATCH TIME</div>
+  <div style="background: #f3f4f6; padding: 15px; border-radius: 6px; text-align: center;">ENGAGEMENT RATE</div>
+</div>
+
+<div class="important-box">
+  <strong>IMPORTANT</strong>
+  Not every platform gives you every metric. Some show saves, some don't. Some show watch time, some show a vague "average view duration." Some hide almost everything unless you have a business account. Record what you actually have and mark the rest as unavailable — don't guess, and don't let the AI fill gaps with invented numbers.
+</div>
+
+<h3>The loop that makes this compound:</h3>
+<div style="background: linear-gradient(135deg, #6366f1, #10b981); color: white; padding: 20px; border-radius: 8px; text-align: center; font-size: 16pt; font-weight: bold; margin: 20px 0;">
+  POST → TRACK → LEARN → IMPROVE
+</div>
+
+<div class="prompt-box">
+  <div class="prompt-title">COPY THIS / PROMPT 5: ANALYZE MY CONTENT PERFORMANCE</div>
+Here are my content metrics from the last 2 weeks:
+[paste your numbers - platform, post, hook, and whatever metrics you have.
+Mark anything unavailable as N/A]
+
+Analyse and give me exactly this:
+
+TOP PERFORMING CONTENT
+Which posts won, and your best guess at why.
+
+BEST HOOK
+The single strongest opening line and what made it work.
+
+BEST PLATFORM
+Where I'm getting the most return for the effort.
+
+BEST FORMAT
+Carousel, reel, thread, text - what's actually landing.
+
+WEAKEST CONTENT
+What flopped and the most likely reason.
+
+WHAT TO TEST NEXT
+Three specific, testable changes. Not vague advice.
+
+NEXT 5 CONTENT IDEAS
+Based on what's working, not on what's generically popular.
+
+RULES:
+- Only use the numbers I gave you. Do not invent metrics.
+- If the sample is too small to conclude anything, say so.
+- Separate "this is what the data shows" from "this is my guess."
+- Be direct about what isn't working.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 9 -->
+<h2><span class="section-number">9</span>THE FULL SYSTEM</h2>
+
+<div style="background: linear-gradient(135deg, #f0f9ff, #f0fdf4); padding: 40px; border-radius: 12px; text-align: center; margin: 30px 0;">
+  <div style="font-size: 18pt; margin: 10px 0;">ONE IDEA</div>
+  <div style="color: #6366f1; font-size: 24pt;">↓</div>
+  <div style="font-size: 18pt; margin: 10px 0;">AI WRITER</div>
+  <div style="color: #6366f1; font-size: 24pt;">↓</div>
+  <div style="font-size: 18pt; margin: 10px 0;">PLATFORM ADAPTER</div>
+  <div style="color: #6366f1; font-size: 24pt;">↓</div>
+  <div style="font-size: 18pt; margin: 10px 0;">CAPTIONS</div>
+  <div style="color: #6366f1; font-size: 24pt;">↓</div>
+  <div style="font-size: 18pt; margin: 10px 0;">APPROVAL (you)</div>
+  <div style="color: #6366f1; font-size: 24pt;">↓</div>
+  <div style="font-size: 18pt; margin: 10px 0;">SCHEDULE</div>
+  <div style="color: #6366f1; font-size: 24pt;">↓</div>
+  <div style="font-size: 18pt; margin: 10px 0;">PUBLISH</div>
+  <div style="color: #6366f1; font-size: 24pt;">↓</div>
+  <div style="font-size: 18pt; margin: 10px 0;">ANALYTICS</div>
+  <div style="color: #6366f1; font-size: 24pt;">↓</div>
+  <div style="font-size: 18pt; margin: 10px 0; font-weight: bold; color: #10b981;">NEXT CONTENT IDEA</div>
+  <div style="margin-top: 20px; font-size: 12pt; color: #6b7280;">and the loop starts again, smarter than last time</div>
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 10 -->
+<h2><span class="section-number">10</span>SIMPLE TOOL STACK</h2>
+<p style="font-size: 12pt;">You need less than you think. Start here:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>TOOL</th>
+      <th>WHAT IT'S FOR</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>ChatGPT or Claude</strong></td>
+      <td>Writing and adapting. Where all 6 prompts live. The core of the whole system.</td>
+    </tr>
+    <tr>
+      <td><strong>Claude Code/ Codex</strong></td>
+      <td>Optional. Only if you want to build custom automation later.</td>
+    </tr>
+    <tr>
+      <td><strong>Canva</strong></td>
+      <td>Carousels, thumbnails, Pinterest graphics. Build one template, reuse forever.</td>
+    </tr>
+    <tr>
+      <td><strong>A scheduling tool</strong></td>
+      <td>Optional. Native platform schedulers work fine when you're starting.</td>
+    </tr>
+    <tr>
+      <td><strong>Google Sheets or Notion</strong></td>
+      <td>Your content calendar and status tracker. One row per post.</td>
+    </tr>
+    <tr>
+      <td><strong>Native platform analytics</strong></td>
+      <td>Free and good enough. Pull numbers weekly into your sheet.</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="important-box">
+  <strong>OPTIONAL</strong>
+  If you're on a budget: ChatGPT + Canva free + a Google Sheet + native schedulers runs this entire system for basically nothing. Add paid tools only when a specific bottleneck is genuinely costing you time.
+</div>
+
+<div class="page-break"></div>
+
+<!-- SECTION 11 -->
+<h2><span class="section-number">11</span>FINAL CHECKLIST</h2>
+
+<div class="checklist-item">Pick one idea</div>
+<div class="checklist-item">Write the master version (Prompt 2)</div>
+<div class="checklist-item">Adapt for each platform (Prompt 3)</div>
+<div class="checklist-item">Create captions (Prompt 4)</div>
+<div class="checklist-item">Review the content yourself</div>
+<div class="checklist-item">Schedule the posts</div>
+<div class="checklist-item">Publish</div>
+<div class="checklist-item">Track your metrics</div>
+<div class="checklist-item">Analyze performance (Prompt 5)</div>
+<div class="checklist-item">Improve the next round</div>
+
+<div class="important-box" style="margin-top: 30px;">
+  <strong>NEXT STEP</strong>
+  Run the checklist once this week with a single idea. Don't try to build the perfect system first — run it once badly, then improve it. Week one is messy for everyone. Week four is where it starts feeling automatic.
+</div>
+
+<div class="page-break"></div>
+
+<!-- THE MASTER PROMPT -->
+<h2><span class="gradient-text">THE MASTER PROMPT</span></h2>
+<p style="font-size: 12pt;">If you only save one thing from this guide, save this. It runs the entire system in a single paste.</p>
+
+<div class="prompt-box" style="background: linear-gradient(135deg, #f0f9ff, #f0fdf4); border: 3px solid #6366f1;">
+  <div class="prompt-title" style="background: linear-gradient(135deg, #6366f1, #10b981);">COPY THIS / RUN MY SOCIALS</div>
+You are my full social media system. I'm giving you one idea.
+Take it all the way to a ready-to-post week.
+
+MY TOPIC: [your topic]
+MY AUDIENCE: [who this is for]
+MY GOAL: [educate/engage/sell/grow]
+MY TONE: [how you sound]
+MY CTA: [your one ask]
+MY PLATFORMS: [list only the ones you actually post on]
+
+Work through all 8 steps in order:
+
+1. CORE IDEA
+Sharpen my topic into one clear, specific angle.
+
+2. MASTER CONTENT
+Write it: HOOK / BODY / VALUE / CTA.
+Give me 3 hook options.
+
+3. PLATFORM VERSIONS
+Adapt for each platform I listed. Native tone each time.
+A different hook for every single one.
+
+4. CAPTIONS
+One caption per platform, using that platform's formula.
+Include hashtags only where they actually help.
+
+5. FORMATS
+Tell me the best format for each - carousel, reel, thread, text, static - and why.
+
+6. POSTING SCHEDULE
+A day-by-day week. Note which ones I'll likely need to publish manually vs. can schedule.
+
+7. TRACKING CHECKLIST
+Exactly which metrics to record per platform.
+Mark anything that platform doesn't expose.
+
+8. WHAT TO IMPROVE NEXT
+Three specific things to test in the next round.
+
+RULES:
+- Keep every output short, practical and ready to use as-is
+- No filler, no "in conclusion", no corporate voice
+- Do not invent statistics, quotes or results
+- Flag anything I need to check or approve before posting
+- If a platform is a bad fit for this idea, say so, don't force it
+</div>
+
+<div class="page-break"></div>
+
+<!-- FINAL IMPORTANT -->
+<div class="important-box" style="background: linear-gradient(135deg, #fef3c7, #f0fdf4); border-left: 5px solid #10b981;">
+  <strong>IMPORTANT — THE HONEST BIT</strong>
+  This system makes you faster and more consistent. It does not guarantee views, followers, or sales. Nothing does. What it removes is the blank-page problem and the excuse of not having time.
+  <br><br>
+  Also: always read before you post, use official APIs and approved scheduling tools rather than anything that automates a logged-in browser session, and remember that AI can write your posts but it can't reply to your comments. That part's still yours — and it's the part that actually builds an audience.
+</div>
+
+<div class="footer">
+  <div style="font-size: 16pt; margin-bottom: 10px; font-weight: bold;">Built BY JB3AI.COM<BS><BS></div> <div class="tagline" style="margin: 20px 0;">One idea in. Every platform out.</div>I
+  <div style="color: #9ca3af;">IDEA / WRITE / ADAPT / SCHEDULE / POST / TRACK</div>
+</div>
+
+<a href="index.html" class="back-to-home">← Back to Home</a>
+
+</body>
+</html>

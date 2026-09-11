@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JB³ AutoSocialAi — Technical Blueprint v1.1 (Upgraded)</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-400-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-600-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-700-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/inter@latest/latin-800-normal.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/fontsource/fonts/jetbrains-mono@latest/latin-400-normal.css">
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'] },
+        colors: {
+          ink: { 50:'#f6f7f9', 100:'#eceef2', 200:'#d5d9e2', 300:'#b0b7c5', 400:'#858ea1', 500:'#667085', 600:'#4f5769', 700:'#3d4554', 800:'#2a3040', 900:'#1a1f2b', 950:'#0f1219' },
+          accent: { DEFAULT:'#6366f1', light:'#818cf8' },
+          mint: { DEFAULT:'#10b981', light:'#34d399' },
+          amber: { DEFAULT:'#f59e0b', light:'#fbbf24' },
+          rose: { DEFAULT:'#f43f5e', light:'#fb7185' },
+          sky: { DEFAULT:'#0ea5e9', light:'#38bdf8' },
+          violet: { DEFAULT:'#8b5cf6', light:'#a78bfa' }
+        }
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: #0f1219; color: #d5d9e2; }
+  .gradient-text { background: linear-gradient(135deg, #818cf8 0%, #6366f1 40%, #10b981 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .gradient-border { position: relative; }
+  .gradient-border::before { content:''; position:absolute; inset:0; padding:1px; border-radius:inherit; background:linear-gradient(135deg, rgba(99,102,241,.5), rgba(16,185,129,.3)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none; }
+  .card { background: linear-gradient(180deg, rgba(42,48,64,.6) 0%, rgba(26,31,43,.6) 100%); backdrop-filter: blur(12px); }
+  .nav-link { position: relative; transition: color .2s; }
+  .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:linear-gradient(90deg,#6366f1,#10b981); transition:width .3s; }
+  .nav-link:hover::after, .nav-link.active::after { width:100%; }
+  .nav-link:hover, .nav-link.active { color:#fff; }
+  .tab-btn.active { background: rgba(99,102,241,.15); color:#fff; border-color:#6366f1 !important; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; animation: fadeIn .3s ease; }
+  @keyframes fadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
+  .scroll-mt { scroll-margin-top: 80px; }
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: #1a1f2b; }
+  ::-webkit-scrollbar-thumb { background: #3d4554; border-radius: 4px; }
+  .section-tag { font-family: 'JetBrains Mono', monospace; font-size: .65rem; letter-spacing: .12em; }
+  .upgrade-badge { background: rgba(245, 158, 11, 0.15); color: #fbbf24; border: 1px solid rgba(245, 158, 11, 0.3); padding: 2px 8px; border-radius: 9999px; font-size: 0.65rem; font-family: 'JetBrains Mono', monospace; font-weight: 600; }
+  .back-to-home {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #6366f1;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    z-index: 1000;
+  }
+</style>
+</head>
+<body class="min-h-screen">
+
+<!-- NAV -->
+<nav class="fixed top-0 left-0 right-0 z-50 bg-ink-950/80 backdrop-blur-xl border-b border-ink-800/60">
+  <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent via-violet to-mint flex items-center justify-center font-bold text-white text-xs">JB³</div>
+      <div>
+        <div class="text-white font-semibold text-sm">AutoSocialAi</div>
+        <div class="text-ink-400 text-[10px] font-mono tracking-wider">TECHNICAL BLUEPRINT v1.1 (UPGRADED)</div>
+      </div>
+    </div>
+    <div class="hidden lg:flex items-center gap-6 text-sm text-ink-300">
+      <a href="#architecture" class="nav-link">Architecture</a>
+      <a href="#statemachine" class="nav-link">State Machine</a>
+      <a href="#ai" class="nav-link">AI Orchestration</a>
+      <a href="#build" class="nav-link">Build Plan</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<header class="pt-32 pb-16 px-6 relative overflow-hidden">
+  <div class="absolute inset-0 opacity-20">
+    <div class="absolute top-20 left-1/4 w-96 h-96 bg-accent/20 rounded-full blur-3xl"></div>
+    <div class="absolute top-40 right-1/4 w-96 h-96 bg-mint/10 rounded-full blur-3xl"></div>
+  </div>
+  <div class="max-w-5xl mx-auto relative">
+    <div class="flex items-center gap-2 mb-3">
+      <span class="upgrade-badge">ARCHITECTURE REVIEW INCORPORATED</span>
+      <span class="text-ink-500 text-xs font-mono">v1.1 · AUG 2026</span>
+    </div>
+    <h1 class="text-5xl md:text-6xl font-extrabold text-white leading-tight mb-6 tracking-tight">
+      JB³ AutoSocialAi<br>
+      <span class="gradient-text">Upgraded Engineering Blueprint</span>
+    </h1>
+    <p class="text-lg text-ink-300 max-w-3xl leading-relaxed">
+      Refined based on rigorous architectural review. Key upgrades: Unified Orchestration Layer, explicit <code class="text-accent-light text-xs">GenerationSession</code> (Run ID) tracing, advanced state machine with platform-specific sub-states, and a hardened, de-risked 14-week build plan featuring a dedicated Hardening Sprint and Beta phase.
+    </p>
+  </div>
+</header>
+
+<!-- ARCHITECTURE -->
+<section id="architecture" class="scroll-mt px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-tag text-accent-light mb-3">01 / UPGRADED ARCHITECTURE</div>
+    <h2 class="text-3xl font-bold text-white mb-8">Unified Orchestration & Execution Context</h2>
+
+    <div class="card rounded-2xl p-8 gradient-border mb-8">
+      <h3 class="text-white font-bold text-lg mb-6">High-Level Component Diagram (v1.1)</h3>
+      <svg viewBox="0 0 1000 480" class="w-full" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <marker id="arr" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0,0 L10,5 L0,10 z" fill="#667085"/></marker>
+          <linearGradient id="g-accent" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#6366f1"/><stop offset="1" stop-color="#818cf8"/></linearGradient>
+          <linearGradient id="g-mint" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#10b981"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+        </defs>
+
+        <!-- Client Layer -->
+        <rect x="50" y="30" width="900" height="60" rx="12" fill="#1a1f2b" stroke="#3d4554" stroke-width="1"/>
+        <text x="500" y="55" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">Client Layer (Next.js 15 Web App)</text>
+        <text x="500" y="75" text-anchor="middle" fill="#858ea1" font-size="11">Conversational Studio · Approval Queue · Compound Canvas</text>
+
+        <!-- API Gateway -->
+        <rect x="300" y="120" width="400" height="50" rx="8" fill="#1a1f2b" stroke="url(#g-accent)" stroke-width="2"/>
+        <text x="500" y="150" text-anchor="middle" fill="#fff" font-size="13" font-weight="600">API Gateway (tRPC / REST / Webhooks)</text>
+
+        <!-- UNIFIED ORCHESTRATION LAYER -->
+        <rect x="50" y="200" width="900" height="140" rx="12" fill="#1a1f2b" stroke="#f59e0b" stroke-width="2" stroke-dasharray="4 4"/>
+        <text x="500" y="225" text-anchor="middle" fill="#fbbf24" font-size="12" font-weight="700" font-family="JetBrains Mono">UNIFIED ORCHESTRATION LAYER (Temporal / Inngest / Trigger.dev)</text>
+
+        <!-- Sub-components -->
+        <rect x="70" y="245" width="260" height="80" rx="8" fill="#2a3040" stroke="#6366f1" stroke-width="1.5"/>
+        <text x="200" y="270" text-anchor="middle" fill="#818cf8" font-size="11" font-weight="600">Workflow Engine</text>
+        <text x="200" y="290" text-anchor="middle" fill="#858ea1" font-size="10">Durable Execution + Human Gates</text>
+        <text x="200" y="305" text-anchor="middle" fill="#858ea1" font-size="10">Run ID / GenerationSession tracking</text>
+
+        <rect x="370" y="245" width="260" height="80" rx="8" fill="#2a3040" stroke="#10b981" stroke-width="1.5"/>
+        <text x="500" y="270" text-anchor="middle" fill="#34d399" font-size="11" font-weight="600">AI Orchestrator</text>
+        <text x="500" y="290" text-anchor="middle" fill="#858ea1" font-size="10">Prompt Registry (Versioned) + Model Router</text>
+        <text x="500" y="305" text-anchor="middle" fill="#858ea1" font-size="10">Judge / Evaluation Service</text>
+
+        <rect x="670" y="245" width="260" height="80" rx="8" fill="#2a3040" stroke="#0ea5e9" stroke-width="1.5"/>
+        <text x="800" y="270" text-anchor="middle" fill="#38bdf8" font-size="11" font-weight="600">Platform Adapter Interface</text>
+        <text x="800" y="290" text-anchor="middle" fill="#858ea1" font-size="10">Common I/O Contract (Publish / Fetch)</text>
+        <text x="800" y="305" text-anchor="middle" fill="#858ea1" font-size="10">OAuth Vault + Rate Limiting</text>
+
+        <!-- Data Layer -->
+        <rect x="50" y="380" width="900" height="70" rx="12" fill="#1a1f2b" stroke="#3d4554" stroke-width="1"/>
+        <text x="500" y="410" text-anchor="middle" fill="#fff" font-size="14" font-weight="600">Data & Infrastructure Layer</text>
+        <text x="500" y="430" text-anchor="middle" fill="#858ea1" font-size="11">PostgreSQL (Prisma + RLS) · Redis · Qdrant/pgvector · S3/R2 · OpenTelemetry</text>
+
+        <!-- Arrows -->
+        <line x1="500" y1="90" x2="500" y2="115" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="500" y1="170" x2="500" y2="195" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="200" y1="340" x2="200" y2="375" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="500" y1="340" x2="500" y2="375" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+        <line x1="800" y1="340" x2="800" y2="375" stroke="#667085" stroke-width="1.5" marker-end="url(#arr)"/>
+
+        <!-- Feedback Loop -->
+        <path d="M 900 270 Q 970 270 970 415 Q 970 470 30 470 Q 30 470 30 415 Q 30 270 65 270" stroke="#10b981" stroke-width="1.5" fill="none" stroke-dasharray="6 4" marker-end="url(#arr)"/>
+        <text x="975" y="340" fill="#34d399" font-size="10" font-family="JetBrains Mono">COMPOUND</text>
+        <text x="975" y="355" fill="#34d399" font-size="10" font-family="JetBrains Mono">LOOP</text>
+      </svg>
+    </div>
+
+    <div class="grid md:grid-cols-2 gap-6">
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+          Key Upgrade: Unified Orchestration
+          <span class="upgrade-badge">CRITICAL</span>
+        </h3>
+        <ul class="space-y-3 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Workflow Engine as Source of Truth:</strong> Replaced raw BullMQ with Temporal/Inngest/Trigger.dev for native human-in-the-loop support, durable execution, and automatic retries.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Explicit Run ID (GenerationSession):</strong> Every idea → publish attempt is tied to a single <code class="text-accent-light text-xs">run_id</code>. Enables full traceability of AI costs, judge scores, and platform responses.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Strict Adapter Interface:</strong> Platform adapters are now pure I/O behind a common contract. The orchestrator doesn't know about Instagram's API quirks; it just calls <code class="text-accent-light text-xs">adapter.publish()</code>.</li>
+        </ul>
+      </div>
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+          Key Upgrade: Data Model Additions
+          <span class="upgrade-badge">NEW</span>
+        </h3>
+        <ul class="space-y-3 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">GenerationSession:</strong> Ties together the original 4-line idea, master content, 8 adaptations, judge scores, and final publish status.</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">StatusTransitionLog:</strong> Immutable audit trail of every state change (who/what triggered it, timestamp, reason).</li>
+          <li class="flex gap-2"><span class="text-mint-light">✓</span> <strong class="text-white">Platform-Specific Sub-states:</strong> <code class="text-accent-light text-xs">PlatformPost</code> now tracks its own state (e.g., <code class="text-accent-light text-xs">PUBLISHING_IG</code>, <code class="text-rose-light text-xs">FAILED_IG</code>), allowing one platform to fail without rolling back the entire batch.</li>
+        </ul>
+      </div>
+    </div>
+    </div>
+</section>
+
+<!-- STATE MACHINE -->
+<section id="statemachine" class="scroll-mt px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-tag text-accent-light mb-3">02 / ADVANCED STATE MACHINE</div>
+    <h2 class="text-3xl font-bold text-white mb-8">Production-Ready State Transitions</h2>
+
+    <div class="card rounded-2xl p-8 gradient-border mb-8">
+      <h3 class="text-white font-bold mb-6">Upgraded Post Lifecycle</h3>
+
+      <div class="flex flex-wrap items-center justify-center gap-2 mb-8">
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-ink-700 text-ink-300 font-mono text-sm font-bold">DRAFT</div>
+        <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-accent/50 text-accent-light font-mono text-sm font-bold">GENERATING</div>
+        <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-amber/50 text-amber font-mono text-sm font-bold">READY</div>
+        <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-mint/50 text-mint-light font-mono text-sm font-bold">APPROVED</div>
+        <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-sky/50 text-sky-light font-mono text-sm font-bold">SCHEDULED</div>
+        <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-violet/50 text-violet-light font-mono text-sm font-bold">PUBLISHING</div>
+        <svg class="w-6 h-6 text-ink-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-mint/50 text-mint-light font-mono text-sm font-bold">PUBLISHED</div>
+        <span class="text-ink-500 mx-2">or</span>
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-rose/50 text-rose-light font-mono text-sm font-bold">FAILED</div>
+        <span class="text-ink-500 mx-2">or</span>
+        <div class="px-4 py-2 rounded-lg bg-ink-900/60 border border-ink-600 text-ink-400 font-mono text-sm font-bold">CANCELLED</div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="bg-ink-950/60 rounded-lg p-5 border border-ink-800">
+          <div class="text-white font-semibold text-sm mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-mint-light"></span> New Transition Rules
+          </div>
+          <ul class="space-y-2.5 text-xs text-ink-300">
+            <li class="flex gap-2"><span class="text-accent-light">→</span> <strong>DRAFT → GENERATING:</strong> User submits idea. UI shows streaming/processing state. Allows cancellation.</li>
+            <li class="flex gap-2"><span class="text-amber">→</span> <strong>READY → APPROVED → READY:</strong> First-class transition. If a user edits an approved post, it reverts to READY for re-evaluation.</li>
+            <li class="flex gap-2"><span class="text-violet-light">→</span> <strong>SCHEDULED → PUBLISHING:</strong> Prevents double-publishing race conditions. Locks the row during the API call.</li>
+            <li class="flex gap-2"><span class="text-rose-light">→</span> <strong>ANY → CANCELLED:</strong> Soft delete for abandoned posts. Preserves analytics linkage without cluttering active queues.</li>
+          </ul>
+        </div>
+        <div class="bg-ink-950/60 rounded-lg p-5 border border-ink-800">
+          <div class="text-white font-semibold text-sm mb-3 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-amber"></span> Platform Sub-States
+          </div>
+          <p class="text-xs text-ink-400 mb-3">Because one idea spawns 8 platform posts, the parent <code class="text-accent-light text-xs">Post</code> can be SCHEDULED while individual <code class="text-accent-light text-xs">PlatformPost</code> entries have their own states:</p>
+          <div class="flex flex-wrap gap-2">
+            <span class="px-2 py-1 rounded bg-ink-800 text-ink-200 text-[10px] font-mono">PUBLISHING_IG</span>
+            <span class="px-2 py-1 rounded bg-ink-800 text-ink-200 text-[10px] font-mono">PUBLISHED_LI</span>
+            <span class="px-2 py-1 rounded bg-rose/20 text-rose-light text-[10px] font-mono">FAILED_TT</span>
+            <span class="px-2 py-1 rounded bg-ink-800 text-ink-200 text-[10px] font-mono">READY_X</span>
+         6</div>
+          <p class="text-xs text-ink-400 mt-3">This ensures a TikTok API failure doesn't block or rollback a successful LinkedIn publish.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI ORCHESTRATION -->
+<section id="ai" class="scroll-mt px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-tag text-accent-light mb-3">03 / AI ORCHESTRATION UPGRADES</div>
+    <h2 class="text-3xl font-bold text-white mb-8">From Concept to Closed-Loop System</h2>
+
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+          1. Prompt Registry (Versioned)
+          <span class="upgrade-badge">UPGRADED</span>
+        </h3>
+        <ul class="space-y-2 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Versioning:</strong> <code class="text-accent-light text-xs">prompt_id</code> + <code class="text-accent-light text-xs">version</code> (e.g., <code class="text-accent-light text-xs">master_content.v7</code>).</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Schema Binding:</strong> Every prompt is strictly bound to an input/output Zod schema.</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Canary Rollouts:</strong> Route 10% of traffic to <code class="text-accent-light text-xs">v8</code> to A/B test prompt efficacy before full deployment.</li>
+        </ul>
+      </div>
+
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+          2. Model Router (Intelligent)
+          <span class="upgrade-badge">UPGRADED</span>
+        </h3>
+        <ul class="space-y-2 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Primary + Fallback:</strong> Auto-failover to secondary provider if primary is rate-limited or down.</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Cost vs. Quality Routing:</strong> Route high-stakes (LinkedIn long-form) to Tier 1 (Opus), and mechanical tasks (hashtag generation) to Tier 3 (Haiku).</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Per-Platform Preferences:</strong> Configurable model mapping per platform type.</li>
+        </ul>
+      </div>
+
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+          3. Judge Model (Elevated)
+          <span class="upgrade-badge">CRITICAL</span>
+        </h3>
+        <ul class="space-y-2 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Separate & Cheaper:</strong> Runs as a fast, post-generation step using a cheaper model (e.g., Sonnet or Haiku).</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Scoring Criteria:</strong> Uniqueness across platforms, brand voice match, hook strength, CTA clarity, policy risk.</li>
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Hard Gate:</strong> Only promotes status to <code class="text-mint-light text-xs">READY</code> if Judge score ≥ threshold. Otherwise, auto-retries with adjusted context or flags for human review.</li>
+        </ul>
+      </div>
+
+      <div class="card rounded-2xl p-6">
+        <h3 class="text-white font-bold mb-4 flex items-center gap-2">
+          4. Context Assembler (The Moat)
+          <span class="upgrade-badge">NEW</span>
+        </h3>
+        <ul class="space-y-2 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-mint-light">→</span> <strong class="text-white">Dynamic Context Injection:</strong> Before any generation, this service pulls:</li>
+          <li class="flex gap-2 pl-4"><span class="text-accent-light">•</span> Workspace brand voice & forbidden phrases.</li>
+          <li class="flex gap-2 pl-4"><span class="text-accent-light">•</span> Top 3 performing past posts (via vector store similarity).</li>
+          <li class="flex gap-2 pl-4"><span class="text-accent-light">•</span> Recent failures/learnings (e.g., "Last TikTok hook was too salesy").</li>
+          <li class="flex gap-2 pl-4"><span class="text-accent-light">•</span> Real-time platform-specific constraints.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUILD PLAN -->
+<section id="build" class="scroll-mt px-6 pb-20">
+  <div class="max-w-7xl mx-auto">
+    <div class="section-tag text-accent-light mb-3">04 / DE-RISKED 14-WEEK BUILD PLAN</div>
+    <h2 class="text-3xl font-bold text-white mb-8">Upgraded Phased Execution Strategy</h2>
+
+    <div class="space-y-6">
+      <!-- Phase 1 -->
+      <div class="card rounded-2xl p-6 gradient-border">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-accent/20 flex items-center justify-center font-mono text-accent-light font-bold text-sm">P1</div>
+            <div>
+              <div class="text-white font-bold text-lg">Foundation & Core AI (Weeks 1-4)</div>
+              <div class="text-xs text-ink-400 font-mono">MODULES: IDEA, WRITE, ADAPT</div>
+            </div>
+          </div>
+          <span class="upgrade-badge">ZOD + JUDGE FROM DAY 1</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">UPGRADED DELIVERABLES</div>
+            <ul class="space-y-1.5 text-sm text-ink-300">
+              <li>• Unified Orchestration Layer (Inngest/Temporal) scaffolded.</li>
+              <li>• <code class="text-accent-light text-xs">GenerationSession</code> (Run ID) entity implemented for full tracing.</li>
+              <li>• Prompt Registry with versioning and Zod schema validation.</li>
+              <li>• Judge Model integrated as a hard gate before <code class="text-amber text-xs">READY</code> state.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">EXIT CRITERIA</div>
+            <div class="bg-ink-950/60 rounded-lg p-3 border border-ink-800 text-sm text-ink-300">
+              User inputs 4 lines → System generates master + 8 adaptations → Judge validates uniqueness/tone → Output is strictly Zod-validated and traceable via Run ID.
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 bg-amber/5 border border-amber/20 rounded-lg p-3 text-xs text-amber">
+          <strong>Why this change:</strong> Forcing structured output (Zod) and the Judge Model from Day 1 prevents the "works in happy path only" trap and ensures data integrity early.
+        </div>
+      </div>
+
+      <!-- Phase 2 (Split) -->
+      <div class="card rounded-2xl p-6 gradient-border">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-mint/20 flex items-center justify-center font-mono text-mint-light font-bold text-sm">P2</div>
+            <div>
+              <div class="text-white font-bold text-lg">Workflow & Initial Publishing (Weeks 5-9)</div>
+              <div class="text-xs text-ink-400 font-mono">SPLIT PHASE: State Machine (5-7) → Adapters (8-9)</div>
+            </div>
+          </div>
+          <span class="upgrade-badge">DE-RISKED PUBLISHING</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">UPGRADED DELIVERABLES</div>
+            <ul class="space-y-1.5 text-sm text-ink-300">
+              <li><strong>Weeks 5-7:</strong> Advanced State Machine (GENERATING, PUBLISHING, CANCELLED), Approval Queue UI, Scheduler, and <em>basic metric ingestion</em>.</li>
+              <li><strong>Weeks 8-9:</strong> First 3 platform adapters (Instagram, LinkedIn, X) with OAuth vault and idempotent publish attempts.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">EXIT CRITERIA</div>
+            <div class="bg-ink-950/60 rounded-lg p-3 border border-ink-800 text-sm text-ink-300">
+              User can approve, schedule, and auto-publish to IG/LI/X. Platform-specific sub-states handle partial failures. Basic metrics are already flowing in.
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 bg-amber/5 border border-amber/20 rounded-lg p-3 text-xs text-amber">
+          <strong>Why this change:</strong> Splitting P2 prevents a "big-bang" publishing release. Moving basic metric ingestion to Week 7 ensures we have real data ready for the compound loop in P3.
+        </div>
+      </div>
+
+      <!-- Hardening Sprint -->
+      <div class="card rounded-2xl p-6 border border-rose/30 bg-rose/5">
+        <div class="flex items-center gap-3 mb-3">
+          <div class="w-10 h-10 rounded-full bg-rose/20 flex items-center justify-center font-mono text-rose-light font-bold text-sm">HS</div>
+          <div>
+            <div class="text-white font-bold text-lg">Hardening Sprint (Week 10)</div>
+            <div class="text-xs text-ink-400 font-mono">DEDICATED RELIABILITY PHASE</div>
+          </div>
+        </div>
+        <p class="text-sm text-ink-300 mb-3">A dedicated, no-new-features week focused entirely on failure modes:</p>
+        <ul class="space-y-1.5 text-sm text-ink-300">
+          <li class="flex gap-2"><span class="text-rose-light">→</span> Token expiry handling and automatic refresh logic.</li>
+          <li class="flex gap-2"><span class="text-rose-light">→</span> Rate limit backoff strategies and dead-letter queue processing.</li>
+          <li class="flex gap-2"><span class="text-rose-light">→</span> Idempotency key stress testing to guarantee zero double-publishes.</li>
+          <li class="flex gap-2"><span class="text-rose-light">→</span> Audit log verification for all state transitions.</li>
+        </ul>
+      </div>
+
+      <!-- Phase 3 -->
+      <div class="card rounded-2xl p-6 gradient-border">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-violet/20 flex items-center justify-center font-mono text-violet-light font-bold text-sm">P3</div>
+            <div>
+              <div class="text-white font-bold text-lg">Compound Loop & Learning (Weeks 11-12)</div>
+              <div class="text-xs text-ink-400 font-mono">MODULE: TRACK + CONTEXT ASSEMBLER</div>
+            </div>
+          </div>
+          <span class="upgrade-badge">COMPETITIVE MOAT</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">DELIVERABLES</div>
+            <ul class="space-y-1.5 text-sm text-ink-300">
+              <li>• Context Assembler fully operational (pulling top performers from pgvector).</li>
+              <li>• Prompt 5 (Analyze Performance) integrated with honest N/A handling.</li>
+              <li>• Compound Canvas UI (React Flow) visualizing the feedback loop.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">EXIT CRITERIA</div>
+            <div class="bg-ink-950/60 rounded-lg p-3 border border-ink-800 text-sm text-ink-300">
+              System automatically uses past performance data to inform the next idea generation cycle. The closed loop is active.
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Phase 4 -->
+      <div class="card rounded-2xl p-6 gradient-border">
+        <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
+          <div class="flex items-center gap-3">
+            <div class="w-10 h-10 rounded-full bg-gradient-to-br from-accent to-mint flex items-center justify-center font-mono text-white font-bold text-sm">★</div>
+            <div>
+              <div class="text-white font-bold text-lg">Beta, Polish & Launch (Weeks 13-14)</div>
+              <div class="text-xs text-ink-400 font-mono">REAL-WORLD VALIDATION</div>
+            </div>
+          </div>
+          <span class="upgrade-badge">BETA USERS INCLUDED</span>
+        </div>
+        <div class="grid md:grid-cols-2 gap-4">
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">UPGRADED DELIVERABLES</div>
+            <ul class="space-y-1.5 text-sm text-ink-300">
+              <li>• <strong>Week 13:</strong> Private beta with 5–10 real users. Observe real-world failure modes and UX friction.</li>
+              <li>• Billing (Stripe) + token budget enforcement.</li>
+              <li>• Monitoring dashboards (OpenTelemetry + Axiom) fully wired.</li>
+              <li>• Onboarding flow + workspace setup wizard.</li>
+            </ul>
+          </div>
+          <div>
+            <div class="text-xs font-mono text-ink-500 mb-2">EXIT CRITERIA</div>
+            <div class="bg-ink-950/60 rounded-lg p-3 border border-ink-800 text-sm text-ink-300">
+              JB³ is stable, validated by real users, and ready for public founding client onboarding. All 6 modules are integrated and the compound loop is actively improving output.
+            </div>
+          </div>
+        </div>
+        <div class="mt-4 bg-amber/5 border border-amber/20 rounded-lg p-3 text-xs text-amber">
+          <strong>Why this change:</strong> 14 weeks is aggressive for a multi-platform publisher. Adding a real-user beta in Week 13 catches edge cases that internal testing misses, preventing post-launch fire drills.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="px-6 py-16 border-t border-ink-800">
+  <div class="max-w-7xl mx-auto">
+    <div class="flex flex-wrap items-center justify-between gap-4 text-xs text-ink-500 font-mono">
+      <span>JB³ AUTOSOCIALAI · TECHNICAL BLUEPRINT v1.1 (UPGRADED)</span>
+      <span>One idea in. Every platform out.</span>
+    </div>
+    <div class="mt-4 text-center text-xs text-ink-600">
+      Architecture review incorporated: Unified Orchestration, Run ID tracing, Advanced State Machine, De-risked Build Plan, Elevated AI Orchestration.
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Tab switching
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const tab = btn.dataset.tab;
+      const parent = btn.closest('section');
+      parent.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      parent.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+      btn.classList.add('active');
+      parent.querySelector(`.tab-content[data-tab="${tab}"]`).classList.add('active');
+    });
+  });
+
+  // Active nav link on scroll
+  const sections = document.querySelectorAll('section[id]');
+  const navLinks = document.querySelectorAll('.nav-link');
+  window.addEventListener('scroll', () => {
+    let current = '';
+    sections.forEach(section => {
+      const top = section.offsetTop - 120;
+      if (window.scrollY >= top) current = section.getAttribute('id');
+    });
+    navLinks.forEach(link => {
+      link.classList.remove('active');
+      if (link.getAttribute('href') === `#${current}`) link.classList.add('active');
+    });
+  });
+</script>
+<a href="index.html" class="back-to-home">← Back to Home</a>
+</body>
+</html>
