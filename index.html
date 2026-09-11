@@ -60,9 +60,41 @@
   .grid > * { min-width: 0; }
   .card { overflow-wrap: anywhere; }
   .card h3.flex { flex-wrap: wrap; }
+  .site-menu { position: relative; }
+  .site-menu summary { cursor: pointer; list-style: none; border: 1px solid #4f5769; border-radius: 10px; padding: 10px 18px; color: #fff; }
+  .site-menu summary::-webkit-details-marker { display: none; }
+  .site-menu[open] summary { background: #2a3040; }
+  .menu-links { position: absolute; right: 0; top: calc(100% + 12px); width: min(300px, calc(100vw - 48px)); max-height: calc(100dvh - 100px); overflow-y: auto; padding: 12px; border: 1px solid #3d4554; border-radius: 14px; background: #1a1f2b; box-shadow: 0 20px 50px #0008; }
+  .menu-links a { display: block; padding: 10px 12px; border-radius: 8px; }
+  .menu-links a:hover { background: #2a3040; }
+  :focus-visible { outline: 2px solid #818cf8; outline-offset: 4px; }
+  #welcome { color: #d5d9e2; background: #1a1f2b; border: 1px solid #4f5769; border-radius: 24px; padding: clamp(24px, 5vw, 40px); width: min(480px, calc(100% - 32px)); max-height: calc(100dvh - 32px); overflow-y: auto; }
+  #welcome::backdrop { background: #0f1219dd; backdrop-filter: blur(8px); }
+  body:has(#welcome[open]) { overflow: hidden; }
+  #welcome.signup-open { width: min(720px, calc(100% - 32px)); }
+  .signup-frame { width: 100%; height: 998px; border: 0; border-radius: 12px; background: #fff; margin-top: 16px; }
+  .welcome-button { width: 100%; padding: 12px 16px; border-radius: 10px; margin-top: 12px; font-weight: 600; cursor: pointer; }
+  .welcome-primary { background: #6366f1; color: white; }
+  .welcome-skip { border: 1px solid #667085; color: #fff; }
 </style>
 </head>
 <body class="min-h-screen">
+
+<dialog id="welcome" aria-labelledby="welcome-title" aria-describedby="welcome-description">
+  <p class="section-tag text-accent-light mb-4">WELCOME TO JB³ AUTOSOCIALAI</p>
+  <h2 id="welcome-title" class="text-3xl font-bold text-white mb-3">One idea. Every platform.</h2>
+  <p id="welcome-description" class="text-sm leading-relaxed mb-6">Explore the vision and plans behind AutoSocialAi. Sign up for product updates, or skip and take a look around.</p>
+  <button id="show-signup" type="button" class="welcome-button welcome-primary" aria-expanded="false" aria-controls="signup-panel">Sign up for updates</button>
+  <button id="skip-welcome" type="button" class="welcome-button welcome-skip" autofocus>Skip — explore without email</button>
+  <p class="text-xs text-ink-400 leading-relaxed mt-6 border-t border-ink-700 pt-4">This website is a product preview. Features, timelines, and examples may change and are not promises of availability or results.</p>
+  <div id="signup-panel" hidden>
+    <p class="text-sm text-ink-300 mt-6">Submit the form below, then select Continue to website. Signup is optional.</p>
+    <p class="text-xs text-ink-400 mt-2">Your responses are sent to AutoSocialAi through Google Forms.</p>
+    <a class="inline-block text-sm text-accent-light underline mt-3" href="https://docs.google.com/forms/d/e/1FAIpQLSc16K4UDi-Di2hFgAEgHsV8tEwIez95QtKVfaB-tKcHok4ESQ/viewform" target="_blank" rel="noopener noreferrer">Open signup form in a new tab</a>
+    <iframe id="signup-frame" class="signup-frame" title="AutoSocialAi email signup form" data-src="https://docs.google.com/forms/d/e/1FAIpQLSc16K4UDi-Di2hFgAEgHsV8tEwIez95QtKVfaB-tKcHok4ESQ/viewform?embedded=true">Loading…</iframe>
+    <button id="continue-welcome" type="button" class="welcome-button welcome-primary">Continue to website</button>
+  </div>
+</dialog>
 
 <!-- NAV -->
 <nav class="fixed top-0 left-0 right-0 z-50 bg-ink-950/90 backdrop-blur-xl border-b border-ink-800/60">
@@ -71,10 +103,11 @@
       <img src="https://placehold.co/40x40/0f1219/818cf8?text=JB³" alt="JB³ Logo" class="w-10 h-10 rounded-lg logo-neon">
       <div>
         <div class="text-white font-bold text-sm tracking-wide">AutoSocialAi</div>
-        <div class="text-ink-400 text-[10px] font-mono tracking-wider">MASTER COMPENDIUM v1.2</div>
       </div>
     </div>
-    <div class="hidden xl:flex items-center gap-4 text-xs text-ink-300 overflow-x-auto">
+    <details class="site-menu">
+      <summary>Explore ☰</summary>
+      <div class="menu-links text-sm text-ink-300">
       <a href="#intro" class="nav-link whitespace-nowrap">Investor Brief</a>
       <a href="#strategy" class="nav-link whitespace-nowrap">Strategy</a>
       <a href="#prd" class="nav-link whitespace-nowrap">PRD</a>
@@ -84,9 +117,10 @@
       <a href="#moat" class="nav-link whitespace-nowrap">Competitive Moat</a>
       <a href="advertisment.html" class="nav-link whitespace-nowrap">Advert</a>
       <a href="engineering_product_specs.html" class="nav-link whitespace-nowrap">Product Specs</a>
-      <a href="OUTLINEPLAN AND PRD.html" class="nav-link whitespace-nowrap">PRD</a>
+      <a href="OUTLINEPLAN AND PRD.html" class="nav-link whitespace-nowrap">Full PRD</a>
       <a href="Upgraded Engineering Blueprint.html" class="nav-link whitespace-nowrap">Engineering Blueprint</a>
-    </div>
+      </div>
+    </details>
   </div>
 </nav>
 
@@ -803,6 +837,32 @@
 </footer>
 
 <script>
+  const welcome = document.getElementById('welcome');
+  const entryKey = 'autosocial-welcome-seen';
+  let hasEntered = false;
+  try { hasEntered = sessionStorage.getItem(entryKey) === 'yes'; } catch {}
+  if (!hasEntered) welcome.showModal();
+  welcome.addEventListener('close', () => {
+    try { sessionStorage.setItem(entryKey, 'yes'); } catch {}
+    document.querySelector('.site-menu summary').focus();
+  });
+  document.getElementById('skip-welcome').addEventListener('click', () => welcome.close());
+  document.getElementById('continue-welcome').addEventListener('click', () => welcome.close());
+  document.getElementById('show-signup').addEventListener('click', event => {
+    const panel = document.getElementById('signup-panel');
+    const frame = document.getElementById('signup-frame');
+    const expanded = event.currentTarget.getAttribute('aria-expanded') === 'true';
+    event.currentTarget.setAttribute('aria-expanded', String(!expanded));
+    panel.hidden = expanded;
+    welcome.classList.toggle('signup-open', !expanded);
+    if (!expanded && !frame.getAttribute('src')) frame.src = frame.dataset.src;
+  });
+  const siteMenu = document.querySelector('.site-menu');
+  siteMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', () => { siteMenu.open = false; }));
+  document.addEventListener('click', event => { if (!siteMenu.contains(event.target)) siteMenu.open = false; });
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && siteMenu.open) { siteMenu.open = false; siteMenu.querySelector('summary').focus(); }
+  });
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       const tab = btn.dataset.tab;
